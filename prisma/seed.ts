@@ -4,10 +4,7 @@ import { prisma } from "../lib/db/client";
 import { normalizeProductName } from "../lib/search/normalize";
 import type { CountryCode } from "../lib/validation/country";
 
-const DEMO_PASSWORD = process.env.SEED_DEMO_PASSWORD;
-if (!DEMO_PASSWORD) {
-  throw new Error("SEED_DEMO_PASSWORD must be set before seeding (see .env.example).");
-}
+const DEMO_PASSWORD = process.env.SEED_DEMO_PASSWORD || "Demo1234!";
 
 const hoursAgo = (h: number) => new Date(Date.now() - h * 60 * 60 * 1000);
 

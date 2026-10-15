@@ -5,10 +5,7 @@ services:
     name: kumbu
     runtime: node
     plan: free
-    # devDependencies are needed to build (Tailwind, TypeScript, tsx for seeding).
-    buildCommand: npm ci --include=dev && npx prisma generate && npm run build
-    # Apply migrations and load the (idempotent) demo data, then start the server.
-    # Remove `npm run db:seed` once you no longer want demo data on boot.
+    buildCommand: npm install && npx prisma generate && npm run build
     startCommand: npx prisma migrate deploy && npm run db:seed && npm start
     healthCheckPath: /
     envVars:
