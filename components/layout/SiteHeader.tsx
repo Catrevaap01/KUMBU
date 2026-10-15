@@ -24,7 +24,14 @@ export async function SiteHeader() {
 
           {user ? (
             <div className="flex items-center gap-2 sm:gap-3">
-              {user.sellerId ? (
+              {user.systemRole === "ADMIN" ? (
+                <Link
+                  href="/admin"
+                  className="text-xs sm:text-sm font-semibold text-amber-600 hover:text-amber-700"
+                >
+                  Administração
+                </Link>
+              ) : user.sellerId ? (
                 <Link
                   href="/dashboard/seller"
                   className="text-xs sm:text-sm font-semibold text-green-800 hover:text-green-600"
@@ -39,15 +46,6 @@ export async function SiteHeader() {
                   Meu Painel
                 </Link>
               )}
-
-              {user.systemRole === "ADMIN" ? (
-                <Link
-                  href="/admin"
-                  className="text-xs sm:text-sm font-semibold text-amber-600 hover:text-amber-700"
-                >
-                  Administração
-                </Link>
-              ) : null}
 
               <SignOutButton />
             </div>

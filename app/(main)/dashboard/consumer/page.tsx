@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/auth/session";
 import { prisma } from "@/lib/db/client";
 import { formatPrice, formatRelativeTime } from "@/lib/format";
@@ -12,6 +13,10 @@ export const metadata: Metadata = {
 
 export default async function ConsumerDashboardPage() {
   const sessionUser = await requireUser("/dashboard/consumer");
+
+  if (sessionUser.systemRole === "ADMIN") {
+    redirect("/admin");
+  }
 
   const [user, myReports, myConfirmations] = await Promise.all([
     prisma.user.findUnique({

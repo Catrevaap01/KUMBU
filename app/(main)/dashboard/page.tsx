@@ -8,6 +8,10 @@ export default async function DashboardRootPage() {
     redirect("/sign-in?from=/dashboard");
   }
 
+  if (user.systemRole === "ADMIN") {
+    redirect("/admin");
+  }
+
   if (user.sellerId) {
     redirect("/dashboard/seller");
   }
