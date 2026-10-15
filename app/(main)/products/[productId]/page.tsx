@@ -54,9 +54,13 @@ export default async function ProductPage({
                 <p className="text-sm text-slate-600">
                   {product.category} · {product.unit}
                   {reports.length > 0
-                    ? ` · ${reports.length} ${reports.length === 1 ? "preço reportado ativo" : "preços reportados ativos"}`
+                    ? ` · ${reports.length} ${reports.length === 1 ? "preço verificado ativo" : "preços verificados ativos"}`
                     : ""}
                 </p>
+                <div className="mt-1.5 flex items-center gap-1.5 text-xs font-semibold text-green-700">
+                  <span className="size-1.5 rounded-full bg-green-600" />
+                  <span>Exclusivo: Apenas Comerciantes Verificados ✓</span>
+                </div>
               </div>
             </div>
             <Button href={`/report-price?productId=${product.id}`} variant="secondary">

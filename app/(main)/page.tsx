@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/db/client";
 import { SearchBar } from "@/components/search/SearchBar";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
+import { Badge } from "@/components/ui/Badge";
 
 const STEPS = [
   {
@@ -14,12 +15,32 @@ const STEPS = [
   },
   {
     title: "Escolhe Melhor",
-    description: "Tome decisões com base em dados atualizados e relatos verificados pela comunidade angolana.",
+    description: "Tome decisões com base em dados atualizados e preços exclusivos de estabelecimentos comerciais verificados.",
   },
 ];
 
+const SELLER_TYPE_LABEL: Record<string, string> = {
+  SUPERMARKET: "Supermercado",
+  GROCERY: "Mercearia / Loja",
+  WHOLESALER: "Grossista",
+  MARKET_SELLER: "Bancada de Mercado",
+  INDEPENDENT_RETAILER: "Retalhista",
+};
+
 export default async function HomePage() {
-  const products = await prisma.product.findMany({ orderBy: { name: "asc" }, take: 8 });
+  const [products, verifiedSellers] = await Promise.all([
+    prisma.product.findMany({ orderBy: { name: "asc" }, take: 8 }),
+    prisma.seller.findMany({
+      where: { verificationStatus: "VERIFIED" },
+      orderBy: { createdAt: "desc" },
+      take: 6,
+      include: {
+        _count: {
+          select: { priceReports: { where: { moderationStatus: "ACTIVE" } } },
+        },
+      },
+    }),
+  ]);
 
   return (
     <main className="flex flex-col">
@@ -27,6 +48,13 @@ export default async function HomePage() {
         <div className="container-page flex flex-col items-center gap-6 py-16 text-center sm:py-24">
           <KumbuLogo size="xl" variant="vertical" className="mb-2" />
           <h1 className="sr-only">KUMBU — Compara. Poupa. Escolhe melhor.</h1>
+
+          {/* Destaque Oficial: Garantia de Comerciantes Verificados */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-green-600/30 bg-green-50 px-4 py-1.5 text-xs font-semibold text-green-900 shadow-sm">
+            <span className="flex size-2 rounded-full bg-green-600 animate-pulse" />
+            <span>Destaque: Preços e Produtos Exclusivos de Comerciantes Verificados ✓</span>
+          </div>
+
           <p className="max-w-lg text-balance text-base font-medium text-slate-600 sm:text-lg">
             Os melhores preços, em todos os mercados. A inteligência de quem compara para poupar no seu dia a dia em Angola.
           </p>
@@ -34,7 +62,55 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="container-page py-12">
+      {/* Destaque de Comerciantes Verificados se existirem */}
+      {verifiedSellers.length > 0 && (
+        <section className="container-page pt-10 pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="inline-block size-2.5 rounded-full bg-green-600" />
+                <h2 className="text-base font-bold text-ink-900 sm:text-lg">
+                  Comerciantes Verificados em Destaque
+                </h2>
+                <Badge tone="success" dot>Auditados</Badge>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Estabelecimentos comerciais e bancadas com autenticidade confirmada pela equipa KUMBU.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {verifiedSellers.map((seller) => (
+              <Link
+                key={seller.id}
+                href={`/sellers/${seller.id}`}
+                className="group flex flex-col justify-between rounded-2xl border border-border bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-green-600/50 hover:shadow-md"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-bold text-ink-900 group-hover:text-green-700">
+                      {seller.businessName}
+                    </span>
+                    <Badge tone="success" dot className="!text-[10px]">
+                      Verificado
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1">
+                    {SELLER_TYPE_LABEL[seller.sellerType] ?? seller.sellerType} · {seller.location}, {seller.city}
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center justify-between border-t border-border/60 pt-2 text-xs text-slate-500">
+                  <span>{seller._count.priceReports} {seller._count.priceReports === 1 ? "preço ativo" : "preços ativos"}</span>
+                  <span className="font-semibold text-green-700 group-hover:underline">Ver catálogo →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="container-page py-10">
         <div className="grid gap-4 sm:grid-cols-3">
           {STEPS.map((step, index) => (
             <div
@@ -53,9 +129,17 @@ export default async function HomePage() {
 
       {products.length > 0 ? (
         <section className="container-page pb-16">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Produtos da Cesta Básica em Destaque
-          </p>
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Cesta Básica Angolana em Destaque
+              </p>
+              <p className="text-xs text-green-700 font-medium">
+                ✓ Exibição de preços de comerciantes com verificação ativa
+              </p>
+            </div>
+          </div>
+
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((product) => (
               <Link

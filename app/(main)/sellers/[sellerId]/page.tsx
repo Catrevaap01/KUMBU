@@ -81,7 +81,12 @@ export default async function SellerPage({
           )}
         </div>
 
-        {listings.length === 0 ? (
+        {seller.verificationStatus !== "VERIFIED" ? (
+          <EmptyState
+            title="Estabelecimento em processo de verificação"
+            description="Para a segurança dos consumidores, os produtos só ficam visíveis publicamente após a verificação oficial do comerciante pela equipa KUMBU."
+          />
+        ) : listings.length === 0 ? (
           <EmptyState title="Este comerciante ainda não possui preços ativos registados." />
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">

@@ -74,6 +74,7 @@ export async function getProductComparison(
       productId,
       moderationStatus: "ACTIVE",
       seller: {
+        verificationStatus: "VERIFIED",
         ...(country ? { country } : {}),
         ...(city ? { city: { equals: city, mode: "insensitive" as const } } : {}),
       },

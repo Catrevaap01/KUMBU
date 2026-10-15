@@ -17,6 +17,12 @@ export async function getSellerListings(
   const seller = await prisma.seller.findUnique({ where: { id: sellerId } });
   if (!seller) return null;
 
+  // Consumidores só veem produtos de comerciantes com verificação ativa
+  const isOwner = Boolean(viewerId && seller.userId === viewerId);
+  if (seller.verificationStatus !== "VERIFIED" && !isOwner) {
+    return { seller, listings: [] };
+  }
+
   // Only the latest ACTIVE report per product is "current" — see the matching
   // comment in getProductComparison.ts for why (price updates insert new rows).
   const rawReports = await prisma.priceReport.findMany({
