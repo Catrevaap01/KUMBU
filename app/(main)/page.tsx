@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/client";
 import { SearchBar } from "@/components/search/SearchBar";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
 import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 const STEPS = [
   {
@@ -160,7 +161,24 @@ export default async function HomePage() {
             ))}
           </div>
         </section>
-      ) : null}
+      ) : (
+        <section className="container-page pb-16">
+          <div className="rounded-2xl border border-dashed border-border bg-white p-8 text-center sm:p-12">
+            <span className="text-4xl">🏪</span>
+            <h3 className="mt-3 text-lg font-bold text-ink-900">
+              Produtos Publicados Exclusivamente por Comerciantes
+            </h3>
+            <p className="mx-auto mt-2 max-w-lg text-sm text-slate-600">
+              Nenhum produto fictício. No KUMBU, os produtos e preços são publicados diretamente pelos comerciantes e estabelecimentos reais de Angola.
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button href="/sellers/register">
+                Registar Estabelecimento e Adicionar Produtos
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

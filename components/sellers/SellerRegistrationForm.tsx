@@ -19,12 +19,32 @@ export function SellerRegistrationForm() {
         </p>
       ) : null}
 
-      <Field label="Nome do Estabelecimento ou Bancada" htmlFor="businessName" error={state.fieldErrors?.businessName}>
-        <Input id="businessName" name="businessName" placeholder="ex: Mini-mercado Kilamba ou Armazém Central" required />
+      <Field
+        label="Nome do Estabelecimento ou Bancada"
+        htmlFor="businessName"
+        error={state.fieldErrors?.businessName}
+      >
+        <Input
+          id="businessName"
+          name="businessName"
+          placeholder="ex: Mini-mercado Kilamba ou Armazém Central"
+          invalid={Boolean(state.fieldErrors?.businessName)}
+          required
+        />
       </Field>
 
-      <Field label="Tipo de Comerciante" htmlFor="sellerType" error={state.fieldErrors?.sellerType}>
-        <Select id="sellerType" name="sellerType" defaultValue="" required>
+      <Field
+        label="Tipo de Comerciante"
+        htmlFor="sellerType"
+        error={state.fieldErrors?.sellerType}
+      >
+        <Select
+          id="sellerType"
+          name="sellerType"
+          defaultValue=""
+          invalid={Boolean(state.fieldErrors?.sellerType)}
+          required
+        >
           <option value="" disabled>
             Selecione o tipo de comércio
           </option>
@@ -37,14 +57,24 @@ export function SellerRegistrationForm() {
       </Field>
 
       <Field label="País" htmlFor="country">
-        <input type="hidden" name="country" value="ANGOLA" />
+        <input id="country" type="hidden" name="country" value="ANGOLA" />
         <div className="w-full rounded-lg border border-border bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-ink-900">
           Angola
         </div>
       </Field>
 
-      <Field label="Província / Cidade" htmlFor="city" error={state.fieldErrors?.city}>
-        <Select id="city" name="city" defaultValue="Luanda" required>
+      <Field
+        label="Província / Cidade"
+        htmlFor="city"
+        error={state.fieldErrors?.city}
+      >
+        <Select
+          id="city"
+          name="city"
+          defaultValue="Luanda"
+          invalid={Boolean(state.fieldErrors?.city)}
+          required
+        >
           {ANGOLA_PROVINCES.map((province) => (
             <option key={province} value={province}>
               {province}
@@ -53,12 +83,32 @@ export function SellerRegistrationForm() {
         </Select>
       </Field>
 
-      <Field label="Bairro ou Endereço" htmlFor="location" error={state.fieldErrors?.location}>
-        <Input id="location" name="location" placeholder="ex: Talatona, Rangel, Maianga ou Centro" required />
+      <Field
+        label="Bairro ou Endereço"
+        htmlFor="location"
+        error={state.fieldErrors?.location}
+      >
+        <Input
+          id="location"
+          name="location"
+          placeholder="ex: Talatona, Rangel, Maianga ou Centro"
+          invalid={Boolean(state.fieldErrors?.location)}
+          required
+        />
       </Field>
 
-      <Field label="Telefone de contacto (opcional)" htmlFor="contactPhone" error={state.fieldErrors?.contactPhone}>
-        <Input id="contactPhone" name="contactPhone" placeholder="+244 9..." />
+      <Field
+        label="Telefone de contacto (opcional)"
+        htmlFor="contactPhone"
+        error={state.fieldErrors?.contactPhone}
+      >
+        <Input
+          id="contactPhone"
+          name="contactPhone"
+          type="tel"
+          placeholder="+244 9..."
+          invalid={Boolean(state.fieldErrors?.contactPhone)}
+        />
       </Field>
 
       <Field
@@ -66,7 +116,13 @@ export function SellerRegistrationForm() {
         htmlFor="contactWhatsapp"
         error={state.fieldErrors?.contactWhatsapp}
       >
-        <Input id="contactWhatsapp" name="contactWhatsapp" placeholder="+244 9..." />
+        <Input
+          id="contactWhatsapp"
+          name="contactWhatsapp"
+          type="tel"
+          placeholder="+244 9..."
+          invalid={Boolean(state.fieldErrors?.contactWhatsapp)}
+        />
       </Field>
 
       <SubmitButton pendingLabel="A registar…">Registar como Vendedor</SubmitButton>
