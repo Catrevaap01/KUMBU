@@ -1,0 +1,44 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="kumbu-yellow-stem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC837" />
+      <stop offset="50%" stop-color="#FFB020" />
+      <stop offset="100%" stop-color="#F57C00" />
+    </linearGradient>
+    <linearGradient id="kumbu-yellow-leg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB82E" />
+      <stop offset="100%" stop-color="#E67E00" />
+    </linearGradient>
+    <linearGradient id="kumbu-green-arm" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B5D3B" />
+      <stop offset="60%" stop-color="#0F7A4D" />
+      <stop offset="100%" stop-color="#199963" />
+    </linearGradient>
+    <filter id="kumbu-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Braço Superior (Verde Amazônia) -->
+  <path
+    d="M 44 48 L 72 17 C 74.5 14 78.5 13 82 15 C 85 17 86.5 20.5 85 24 L 62 55 L 44 48 Z"
+    fill="url(#kumbu-green-arm)"
+  />
+
+  <!-- Perna Inferior (Amarelo Sol) -->
+  <path
+    d="M 46 45 L 61 34 L 84 76 C 86.5 80.5 83.5 86 78 86 L 62 86 C 58.5 86 55.5 84 53.5 81 L 46 45 Z"
+    fill="url(#kumbu-yellow-leg)"
+  />
+
+  <!-- Haste Vertical (Amarelo Sol) -->
+  <rect
+    x="16"
+    y="14"
+    width="23"
+    height="72"
+    rx="10"
+    fill="url(#kumbu-yellow-stem)"
+    filter="url(#kumbu-shadow)"
+  />
+</svg>

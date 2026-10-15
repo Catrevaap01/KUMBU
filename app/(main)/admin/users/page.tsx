@@ -1,0 +1,28 @@
+import type { Metadata } from "next";
+import { requireAdmin } from "@/lib/auth/session";
+import { getUsersForAdmin } from "@/lib/admin/getUsersForAdmin";
+import { AdminNav } from "@/components/admin/AdminNav";
+import { UserManagementTable } from "@/components/admin/UserManagementTable";
+
+export const metadata: Metadata = {
+  title: "Gestão de Utilizadores — Administração KUMBU",
+  description: "Lista e administração de utilizadores, comerciantes e administradores da plataforma KUMBU.",
+};
+
+export default async function AdminUsersPage() {
+  const admin = await requireAdmin("/admin/users");
+  const users = await getUsersForAdmin();
+
+  return (
+    <main className="container-page flex flex-col gap-6 py-10">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight text-ink-900">Administração</h1>
+        <p className="text-sm text-slate-600">Moderação de utilizadores, comerciantes e permissões da plataforma.</p>
+      </div>
+
+      <AdminNav active="/admin/users" />
+
+      <UserManagementTable users={users} currentAdminId={admin.id} />
+    </main>
+  );
+}

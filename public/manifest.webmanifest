@@ -1,0 +1,25 @@
+{
+  "name": "KUMBU — Compara. Poupa. Escolhe melhor.",
+  "short_name": "KUMBU",
+  "description": "Os melhores preços, em todos os mercados. Compare preços em Angola.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0B5D3B",
+  "orientation": "portrait",
+  "categories": ["shopping", "finance", "business"],
+  "icons": [
+    {
+      "src": "/kumbu-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/kumbu-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
