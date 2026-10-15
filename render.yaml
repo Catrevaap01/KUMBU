@@ -2,7 +2,7 @@
 # Deploy with: Render Dashboard > New > Blueprint > pick this repo.
 services:
   - type: web
-    name: sokowise
+    name: kumbu
     runtime: node
     plan: free
     # devDependencies are needed to build (Tailwind, TypeScript, tsx for seeding).
