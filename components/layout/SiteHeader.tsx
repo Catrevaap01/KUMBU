@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth/session";
-import { signOutAction } from "@/lib/actions/sign-out";
+import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Button } from "@/components/ui/Button";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
 import { CartHeaderButton } from "@/components/cart/CartHeaderButton";
@@ -49,11 +49,7 @@ export async function SiteHeader() {
                 </Link>
               ) : null}
 
-              <form action={signOutAction}>
-                <Button type="submit" variant="ghost" className="!px-2.5 sm:!px-3 !py-1 text-xs">
-                  Sair
-                </Button>
-              </form>
+              <SignOutButton />
             </div>
           ) : (
             <div className="flex items-center gap-2">

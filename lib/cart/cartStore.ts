@@ -74,5 +74,11 @@ export function removeFromCart(reportId: string): void {
 }
 
 export function clearCart(): void {
-  saveCart([]);
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.removeItem(CART_STORAGE_KEY);
+    window.dispatchEvent(new Event(CART_UPDATED_EVENT));
+  } catch (err) {
+    console.error("Falha ao limpar o carrinho:", err);
+  }
 }
