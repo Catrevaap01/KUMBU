@@ -19,6 +19,7 @@ export function SellerListingCard({
   seller,
   isAuthenticated,
   redirectPath,
+  showCart = true,
 }: {
   listing: SellerListingView;
   seller?: {
@@ -31,6 +32,7 @@ export function SellerListingCard({
   };
   isAuthenticated: boolean;
   redirectPath: string;
+  showCart?: boolean;
 }) {
   return (
     <div className="flex flex-col justify-between rounded-2xl border border-border bg-white p-5 shadow-sm shadow-ink-900/5 transition-all hover:-translate-y-0.5 hover:shadow-md">
@@ -71,7 +73,7 @@ export function SellerListingCard({
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-border/80 pt-3">
-        {seller && (
+        {seller && showCart && (
           <AddToCartButton
             item={{
               reportId: listing.id,

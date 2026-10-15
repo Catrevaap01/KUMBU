@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/session";
 import { CartView } from "@/components/cart/CartView";
 import { prisma } from "@/lib/db/client";
@@ -10,6 +11,14 @@ export const metadata: Metadata = {
 
 export default async function CartPage() {
   const sessionUser = await getCurrentUser();
+
+  // Vendedores e Administradores não usam o carrinho de compras de consumidor
+  if (sessionUser?.sellerId) {
+    redirect("/dashboard/seller");
+  }
+  if (sessionUser?.systemRole === "ADMIN") {
+    redirect("/admin");
+  }
   let userName: string | null = null;
   let userEmail: string | null = null;
 

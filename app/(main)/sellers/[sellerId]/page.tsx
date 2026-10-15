@@ -22,6 +22,10 @@ export default async function SellerPage({
 }) {
   const { sellerId } = await params;
   const user = await getCurrentUser();
+  const isSeller = Boolean(user?.sellerId);
+  const isAdmin = user?.systemRole === "ADMIN";
+  const showCart = !isSeller && !isAdmin;
+
   const result = await getSellerListings(sellerId, { viewerId: user?.id });
   if (!result) notFound();
 
@@ -70,9 +74,11 @@ export default async function SellerPage({
           <h2 className="text-lg font-bold text-ink-900">
             Produtos e Preços Registados ({listings.length})
           </h2>
-          <span className="text-xs text-slate-500">
-            Adicione ao carrinho ou envie encomenda direta via WhatsApp
-          </span>
+          {showCart && (
+            <span className="text-xs text-slate-500">
+              Adicione ao carrinho ou envie encomenda direta via WhatsApp
+            </span>
+          )}
         </div>
 
         {listings.length === 0 ? (
@@ -86,6 +92,7 @@ export default async function SellerPage({
                 seller={seller}
                 isAuthenticated={Boolean(user)}
                 redirectPath={`/sellers/${seller.id}`}
+                showCart={showCart}
               />
             ))}
           </div>

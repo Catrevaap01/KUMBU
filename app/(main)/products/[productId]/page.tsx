@@ -22,6 +22,10 @@ export default async function ProductPage({
   const city = cityParam?.trim() || undefined;
 
   const user = await getCurrentUser();
+  const isSeller = Boolean(user?.sellerId);
+  const isAdmin = user?.systemRole === "ADMIN";
+  const showCart = !isSeller && !isAdmin;
+
   const [comparison, locationOptions] = await Promise.all([
     getProductComparison(productId, { viewerId: user?.id, country, city }),
     getLocationFilterOptions(country),
@@ -108,6 +112,7 @@ export default async function ProductPage({
                 isLowestReported={report.id === lowestReportedId}
                 isAuthenticated={Boolean(user)}
                 redirectPath={`/products/${product.id}`}
+                showCart={showCart}
               />
             ))}
           </div>

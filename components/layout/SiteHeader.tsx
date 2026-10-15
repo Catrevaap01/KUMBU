@@ -7,6 +7,9 @@ import { CartHeaderButton } from "@/components/cart/CartHeaderButton";
 
 export async function SiteHeader() {
   const user = await getCurrentUser();
+  const isSeller = Boolean(user?.sellerId);
+  const isAdmin = user?.systemRole === "ADMIN";
+  const showCart = !isSeller && !isAdmin;
 
   return (
     <header className="border-b border-border bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
@@ -16,8 +19,8 @@ export async function SiteHeader() {
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Botão de Carrinho sempre acessível */}
-          <CartHeaderButton />
+          {/* Carrinho só visível para Consumidores ou visitantes */}
+          {showCart && <CartHeaderButton />}
 
           {user ? (
             <div className="flex items-center gap-2 sm:gap-3">

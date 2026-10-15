@@ -29,6 +29,7 @@ export function PriceReportCard({
   isLowestReported,
   isAuthenticated,
   redirectPath,
+  showCart = true,
 }: {
   report: PriceReportView;
   product?: { id: string; name: string; category?: string; unit: string };
@@ -36,6 +37,7 @@ export function PriceReportCard({
   isLowestReported?: boolean;
   isAuthenticated: boolean;
   redirectPath: string;
+  showCart?: boolean;
 }) {
   const availability = AVAILABILITY_LABEL[report.availability];
   const highlighted = isBestValue || isLowestReported;
@@ -118,7 +120,7 @@ export function PriceReportCard({
             compact
           />
 
-          {product && (
+          {product && showCart && (
             <AddToCartButton
               item={{
                 reportId: report.id,
