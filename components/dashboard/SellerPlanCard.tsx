@@ -23,7 +23,7 @@ export function SellerPlanCard({
   return (
     <div className="grid gap-4 sm:grid-cols-3">
       {/* 1. Cartão do Plano SaaS */}
-      <div className="sm:col-span-2 rounded-2xl border border-border bg-gradient-to-br from-white to-[#FFF6EB] p-5 sm:p-6 shadow-xs">
+      <div className="sm:col-span-2 rounded-2xl border border-border bg-gradient-to-br from-white to-green-50/40 p-5 sm:p-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#687280]">
@@ -31,7 +31,7 @@ export function SellerPlanCard({
             </span>
             <div className="mt-1 flex items-center gap-2">
               <h3 className="text-xl font-extrabold text-[#0B0B0D]">
-                {isPro ? "Plano KUBIKA Pro ⭐" : "Plano Grátis (Freemium)"}
+                {isPro ? "Plano KUBIKA Pro" : "Plano Grátis (Freemium)"}
               </h3>
               <Badge tone={isPro ? "accent" : "neutral"}>
                 {isPro ? "PRO ATIVO" : "BÁSICO"}
@@ -43,7 +43,7 @@ export function SellerPlanCard({
           <form action={formAction}>
             <input type="hidden" name="plan" value={isPro ? "FREE" : "PRO"} />
             <SubmitButton
-              className={isPro ? "!bg-[#0B0B0D] hover:!bg-[#1E1F24]" : "!bg-[#FF8A00] hover:!bg-[#E67A00] text-white"}
+              className={isPro ? "!bg-[#0B0B0D] hover:!bg-[#1E1F24]" : "!bg-green-600 hover:bg-green-700 text-white"}
               pendingLabel="A atualizar plano…"
             >
               {isPro ? "Mudar para Grátis" : "Ativar KUBIKA Pro (9.500 Kz/mês)"}
@@ -65,14 +65,14 @@ export function SellerPlanCard({
             <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
               <div
                 className={`h-full transition-all ${
-                  productsCount >= 5 ? "bg-red-500" : "bg-[#FF8A00]"
+                  productsCount >= 5 ? "bg-red-500" : "bg-green-600"
                 }`}
                 style={{ width: `${Math.min(100, (productsCount / 5) * 100)}%` }}
               />
             </div>
           ) : (
-            <p className="text-xs text-[#FF8A00] font-semibold">
-              ✓ Pode publicar e gerir cotações de quantos produtos desejar.
+            <p className="text-xs text-green-600 font-semibold">
+              Pode publicar e gerir cotações de quantos produtos desejar.
             </p>
           )}
         </div>
@@ -80,11 +80,11 @@ export function SellerPlanCard({
         {/* Benefícios do Plano Pro */}
         {!isPro ? (
           <div className="mt-3 grid gap-2 sm:grid-cols-2 text-xs text-[#687280]">
-            <span className="flex items-center gap-1.5 text-[#0B0B0D] font-medium">
-              ⭐ Posição prioritária no topo das pesquisas
+            <span className="text-[#0B0B0D] font-medium">
+              Posição prioritária no topo das pesquisas
             </span>
-            <span className="flex items-center gap-1.5 text-[#0B0B0D] font-medium">
-              ⭐ Selo oficial de Comerciante KUBIKA Pro
+            <span className="text-[#0B0B0D] font-medium">
+              Selo oficial de Comerciante KUBIKA Pro
             </span>
           </div>
         ) : null}

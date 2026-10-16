@@ -62,13 +62,13 @@ export default async function HomePage() {
           <h1 className="sr-only">KUBIKA — Compara. Poupa. Escolhe melhor.</h1>
 
           {/* Destaque Oficial: Garantia de Comerciantes Verificados */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#FF8A00]/30 bg-[#FF8A00]/10 px-4 py-1.5 text-xs font-bold text-[#0B0B0D] shadow-sm">
-            <span className="flex size-2 rounded-full bg-[#FF8A00] animate-pulse" />
-            <span>Preços e Produtos Exclusivos de Comerciantes Verificados ✓</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-green-600/30 bg-green-50 px-4 py-1.5 text-xs font-bold text-[#0B0B0D] shadow-sm">
+            <span className="flex size-2 rounded-full bg-green-600 animate-pulse" />
+            <span>Preços e Produtos Exclusivos de Comerciantes Verificados</span>
           </div>
 
           <p className="max-w-md text-balance text-base font-semibold text-[#0B0B0D] sm:text-lg">
-            Compare preços e encontre as melhores ofertas <span className="text-[#FF8A00]">perto de si</span>.
+            Compare preços e encontre as melhores ofertas <span className="text-green-600">perto de si</span>.
           </p>
 
           <div className="w-full max-w-xl">
@@ -101,7 +101,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="inline-block size-2.5 rounded-full bg-[#FF8A00]" />
+                <span className="inline-block size-2.5 rounded-full bg-green-600" />
                 <h2 className="text-base font-bold text-[#0B0B0D] sm:text-lg">
                   Comerciantes Verificados em Destaque
                 </h2>
@@ -118,11 +118,11 @@ export default async function HomePage() {
               <Link
                 key={seller.id}
                 href={`/sellers/${seller.id}`}
-                className="group flex flex-col justify-between rounded-2xl border border-border bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-[#FF8A00]/50 hover:shadow-md"
+                className="group flex flex-col justify-between rounded-2xl border border-border bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-green-600/50 hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-bold text-[#0B0B0D] group-hover:text-[#FF8A00]">
+                    <span className="font-bold text-[#0B0B0D] group-hover:text-green-600">
                       {seller.businessName}
                     </span>
                     <Badge tone="success" dot className="!text-[10px]">
@@ -135,7 +135,7 @@ export default async function HomePage() {
                 </div>
                 <div className="mt-3 flex items-center justify-between border-t border-border/60 pt-2 text-xs text-[#687280]">
                   <span>{seller._count.priceReports} {seller._count.priceReports === 1 ? "preço ativo" : "preços ativos"}</span>
-                  <span className="font-semibold text-[#FF8A00] group-hover:underline">Ver catálogo →</span>
+                  <span className="font-semibold text-green-600 group-hover:underline">Ver catálogo →</span>
                 </div>
               </Link>
             ))}
@@ -154,9 +154,9 @@ export default async function HomePage() {
           {STEPS.map((step, index) => (
             <div
               key={step.title}
-              className="rounded-2xl border border-border bg-white p-5 shadow-xs transition hover:border-[#FF8A00]/30 hover:shadow-sm"
+              className="rounded-2xl border border-border bg-white p-5 shadow-xs transition hover:border-green-600/30 hover:shadow-sm"
             >
-              <span className="flex size-8 items-center justify-center rounded-full bg-[#FF8A00]/10 text-sm font-black text-[#FF8A00]">
+              <span className="flex size-8 items-center justify-center rounded-full bg-green-100 text-sm font-black text-green-700">
                 {index + 1}
               </span>
               <p className="mt-3 font-bold text-[#0B0B0D] text-base">{step.title}</p>
@@ -173,8 +173,8 @@ export default async function HomePage() {
               <p className="text-xs font-bold uppercase tracking-wider text-[#687280]">
                 Cesta Básica Angolana em Destaque
               </p>
-              <p className="text-xs text-[#FF8A00] font-semibold">
-                ✓ Exibição de preços de comerciantes com verificação ativa
+              <p className="text-xs text-green-600 font-semibold">
+                Exibição de preços de comerciantes com verificação ativa
               </p>
             </div>
           </div>
@@ -184,13 +184,13 @@ export default async function HomePage() {
               <Link
                 key={product.id}
                 href={`/products/${product.id}`}
-                className="group flex items-center gap-3 rounded-xl border border-border bg-white p-3.5 shadow-xs transition-all hover:-translate-y-0.5 hover:border-[#FF8A00]/50 hover:shadow-md"
+                className="group flex items-center gap-3 rounded-xl border border-border bg-white p-3.5 shadow-xs transition-all hover:-translate-y-0.5 hover:border-green-600/50 hover:shadow-md"
               >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#FF8A00]/10 text-sm font-bold text-[#FF8A00]">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700">
                   {product.name.charAt(0)}
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold text-[#0B0B0D] group-hover:text-[#FF8A00]">
+                  <span className="block text-sm font-semibold text-[#0B0B0D] group-hover:text-green-600">
                     {product.name}
                   </span>
                   <span className="block text-xs text-[#687280]">{product.unit}</span>

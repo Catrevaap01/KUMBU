@@ -34,7 +34,7 @@ export function SignInForm({ from }: { from?: string }) {
         Novo na KUBIKA?{" "}
         <Link
           href={from ? `/sign-up?from=${encodeURIComponent(from)}` : "/sign-up"}
-          className="font-semibold text-[#FF8A00] hover:underline"
+          className="font-semibold text-green-600 hover:underline"
         >
           Criar uma conta
         </Link>

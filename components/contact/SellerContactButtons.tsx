@@ -56,7 +56,6 @@ export function SellerContactButtons({
           className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-white px-3 py-1.5 font-semibold text-ink-900 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 active:scale-95"
           title={`Ligar para ${phone}`}
         >
-          <span>📞</span>
           <span>{phone}</span>
         </a>
       )}

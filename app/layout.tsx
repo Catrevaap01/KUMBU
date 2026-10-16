@@ -1,18 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Inter } from "next/font/google";
 import { PwaRegister } from "@/components/ui/PwaRegister";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#FF8A00",
+  themeColor: "#0f7a4a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -45,17 +45,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { getCurrentUser } from "@/lib/auth/session";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getCurrentUser();
+  const userRole = user?.systemRole === "ADMIN" ? "ADMIN" : user?.sellerId ? "SELLER" : user ? "CONSUMER" : null;
+
   return (
-    <html lang="pt" suppressHydrationWarning className={`${montserrat.variable} h-full antialiased`}>
-      <body className="min-h-full bg-[#FBFAFC] text-[#0B0B0D] font-sans selection:bg-[#FF8A00]/20 selection:text-[#0B0B0D] pb-16 sm:pb-0" suppressHydrationWarning>
+    <html lang="pt" suppressHydrationWarning className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full bg-white text-ink-900 font-sans selection:bg-green-600/20 selection:text-ink-900 pb-16 sm:pb-0" suppressHydrationWarning>
         <PwaRegister />
         {children}
-        <MobileBottomNav />
+        <MobileBottomNav role={userRole} />
       </body>
     </html>
   );

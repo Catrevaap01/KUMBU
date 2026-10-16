@@ -1,12 +1,12 @@
 <svg viewBox="0 0 450 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="kubika-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFA12E" />
-      <stop offset="100%" stop-color="#FF7A00" />
+      <stop offset="0%" stop-color="#16a34a" />
+      <stop offset="100%" stop-color="#15803d" />
     </linearGradient>
     <linearGradient id="kubika-orange-tag" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF9514" />
-      <stop offset="100%" stop-color="#E66E00" />
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#16a34a" />
     </linearGradient>
     <mask id="kubika-logo-hole-mask">
       <rect width="100" height="100" fill="white" />
@@ -27,7 +27,7 @@
   </g>
 
   <!-- Wordmark KUBIKA -->
-  <text x="125" y="60" font-family="Montserrat, -apple-system, BlinkMacSystemFont, sans-serif" font-size="52" font-weight="900" fill="#0B0B0D" letter-spacing="4">KUBIK<tspan fill="#FF8A00">A</tspan></text>
+  <text x="125" y="60" font-family="Montserrat, -apple-system, BlinkMacSystemFont, sans-serif" font-size="52" font-weight="900" fill="#0B0B0D" letter-spacing="4">KUBIK<tspan fill="#16a34a">A</tspan></text>
 
   <!-- Slogan Oficial: COMPARA. POUPA. ESCOLHE MELHOR. -->
   <text x="127" y="80" font-family="Montserrat, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="700" fill="#687280" letter-spacing="2.8">COMPARA. POUPA. ESCOLHE MELHOR.</text>

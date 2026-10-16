@@ -6,7 +6,6 @@ import { formatPrice } from "@/lib/format";
 import { buildWhatsAppUrl, cleanAngolaPhone, buildCartOrderMessage } from "@/lib/contact/whatsapp";
 import { Button } from "@/components/ui/Button";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
-import { Badge } from "@/components/ui/Badge";
 
 export function CartView({
   userName,
@@ -28,11 +27,10 @@ export function CartView({
 
   const [invoiceMode, setInvoiceMode] = useState<"SPLIT" | "UNIFIED">("SPLIT");
   const [customerName, setCustomerName] = useState(userName ?? "");
-  
-  // Pilares 4 e 5: Logística Local e Intermediação Multicaixa Express
+
+  // Pilar 5: Logística Local
   const [deliveryMode, setDeliveryMode] = useState<"PICKUP" | "DELIVERY">("PICKUP");
   const [deliveryAddress, setDeliveryAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"DIRECT" | "MULTICAIXA">("DIRECT");
 
   if (!isLoaded) {
     return (
@@ -46,8 +44,7 @@ export function CartView({
     return (
       <div className="container-page py-16">
         <div className="mx-auto max-w-md rounded-2xl border border-border bg-white p-8 text-center shadow-sm">
-          <span className="text-5xl">🛒</span>
-          <h1 className="mt-4 text-xl font-bold text-ink-900">O seu carrinho está vazio</h1>
+          <h1 className="text-xl font-bold text-ink-900">O seu carrinho está vazio</h1>
           <p className="mt-2 text-sm text-slate-600">
             Compare preços de produtos essenciais e adicione os melhores negócios à sua lista.
           </p>
@@ -68,13 +65,9 @@ export function CartView({
     year: "numeric",
   });
 
-  // Cálculos Financeiros com Logística e Taxa de Conveniência Fintech
+  // Cálculos Financeiros com Logística
   const deliveryFee = deliveryMode === "DELIVERY" ? 1500 : 0;
-  const serviceFee = paymentMethod === "MULTICAIXA" ? Math.round(totalPrice * 0.015) : 0;
-  const finalTotal = totalPrice + deliveryFee + serviceFee;
-
-  // Referência Multicaixa Express Simulada (9 dígitos)
-  const multicaixaRef = `924${Math.abs(invoiceNumber.split("").reduce((a, b) => a + b.charCodeAt(0), 100) * 83).toString().slice(0, 6)}`;
+  const finalTotal = totalPrice + deliveryFee;
 
   const handlePrint = () => {
     window.print();
@@ -85,10 +78,7 @@ export function CartView({
       ? `Entrega ao Domicílio por Estafeta (+1.500 Kz) — Endereço: ${deliveryAddress || "A combinar"}`
       : "Levantamento no Estabelecimento (Grátis)";
 
-  const paymentTextFormatted =
-    paymentMethod === "MULTICAIXA"
-      ? `Multicaixa Express (Entidade: 00542 | Ref: ${multicaixaRef})`
-      : "Pagamento Direto / No ato da entrega";
+  const paymentTextFormatted = "Pagamento Direto / No ato da entrega";
 
   return (
     <div className="container-page py-8 space-y-8">
@@ -166,10 +156,11 @@ export function CartView({
                       <button
                         type="button"
                         onClick={() => removeFromCart(item.reportId)}
-                        className="text-slate-400 hover:text-red-600 p-1 text-sm font-bold ml-1"
-                        title="Remover"
+                        className="text-slate-400 hover:text-red-600 p-1 text-base font-bold ml-1 leading-none"
+                        title="Remover produto do carrinho"
                       >
-                        ✕
+                        <span aria-hidden="true">&times;</span>
+                        <span className="sr-only">Remover</span>
                       </button>
                     </div>
                   </div>
@@ -180,12 +171,11 @@ export function CartView({
         </div>
       </div>
 
-      {/* Opções de Logística Local & Intermediação de Pagamento Multicaixa (Oculto na Impressão) */}
-      <div className="print:hidden grid gap-6 md:grid-cols-2">
+      {/* Opções de Logística Local (Oculto na Impressão) */}
+      <div className="print:hidden">
         {/* Pilar 5: Logística Local / Entrega ao Domicílio */}
         <div className="rounded-2xl border border-border bg-white p-5 shadow-sm space-y-4">
           <div className="flex items-center gap-2">
-            <span className="text-xl">🛵</span>
             <h3 className="font-bold text-ink-900">Modalidade de Entrega / Logística</h3>
           </div>
 
@@ -199,7 +189,7 @@ export function CartView({
                   : "border-border bg-white text-slate-600 hover:bg-slate-50"
               }`}
             >
-              <span className="block font-bold">🏪 Levantamento no Local</span>
+              <span className="block font-bold">Levantamento no Local</span>
               <span className="text-[11px] text-slate-500 font-normal">Grátis no estabelecimento</span>
             </button>
 
@@ -212,7 +202,7 @@ export function CartView({
                   : "border-border bg-white text-slate-600 hover:bg-slate-50"
               }`}
             >
-              <span className="block font-bold">🚚 Entregar em Casa</span>
+              <span className="block font-bold">Entregar em Casa</span>
               <span className="text-[11px] text-green-700 font-normal">+1.500 Kz (Estafeta Parceiro)</span>
             </button>
           </div>
@@ -229,68 +219,6 @@ export function CartView({
                 placeholder="ex: Centralidade do Kilamba, Quarteirão B, Prédio B14"
                 className="w-full rounded-lg border border-border bg-white px-3 py-2 text-xs text-ink-900 placeholder:text-slate-400"
               />
-            </div>
-          )}
-        </div>
-
-        {/* Pilar 4: Intermediação de Pagamentos / Multicaixa Express */}
-        <div className="rounded-2xl border border-border bg-white p-5 shadow-sm space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💳</span>
-            <h3 className="font-bold text-ink-900">Método de Pagamento (KUBIKA Pay)</h3>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 text-xs font-semibold">
-            <button
-              type="button"
-              onClick={() => setPaymentMethod("DIRECT")}
-              className={`rounded-xl border p-3 text-left transition ${
-                paymentMethod === "DIRECT"
-                  ? "border-[#FF8A00] bg-[#FF8A00]/10 text-[#0B0B0D] ring-1 ring-[#FF8A00]"
-                  : "border-border bg-white text-slate-600 hover:bg-slate-50"
-              }`}
-            >
-              <span className="block font-bold">💬 Acordo Direto</span>
-              <span className="text-[11px] text-slate-500 font-normal">Pagar ao comerciante / Dinheiro</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setPaymentMethod("MULTICAIXA")}
-              className={`rounded-xl border p-3 text-left transition ${
-                paymentMethod === "MULTICAIXA"
-                  ? "border-[#FF8A00] bg-[#FF8A00]/10 text-[#0B0B0D] ring-1 ring-[#FF8A00]"
-                  : "border-border bg-white text-slate-600 hover:bg-slate-50"
-              }`}
-            >
-              <span className="block font-bold">🏧 Multicaixa Express</span>
-              <span className="text-[11px] text-[#FF8A00] font-bold">+1.5% conveniência</span>
-            </button>
-          </div>
-
-          {paymentMethod === "MULTICAIXA" && (
-            <div className="rounded-xl border border-[#FF8A00]/30 bg-[#FFF8F0] p-3 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-[#0B0B0D]">Referência Multicaixa Gerada:</span>
-                <Badge tone="success" dot>Ativa</Badge>
-              </div>
-              <div className="grid grid-cols-3 gap-2 font-mono text-center">
-                <div className="rounded bg-white p-1.5 border border-[#FF8A00]/20">
-                  <span className="text-[10px] text-slate-500 block">Entidade</span>
-                  <span className="font-bold text-ink-900">00542</span>
-                </div>
-                <div className="rounded bg-white p-1.5 border border-[#FF8A00]/20">
-                  <span className="text-[10px] text-slate-500 block">Referência</span>
-                  <span className="font-bold text-ink-900">{multicaixaRef}</span>
-                </div>
-                <div className="rounded bg-white p-1.5 border border-[#FF8A00]/20">
-                  <span className="text-[10px] text-slate-500 block">Montante</span>
-                  <span className="font-bold text-[#FF8A00]">{formatPrice(finalTotal, "AOA")}</span>
-                </div>
-              </div>
-              <p className="text-[11px] text-[#687280]">
-                Pague através do aplicativo Multicaixa Express no telemóvel ou em qualquer caixa ATM.
-              </p>
             </div>
           )}
         </div>
@@ -348,7 +276,6 @@ export function CartView({
             onClick={handlePrint}
             className="inline-flex items-center gap-1.5 rounded-lg bg-[#0B0B0D] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#1E1F24] transition"
           >
-            <span>🖨️</span>
             <span>Imprimir / Baixar Fatura (PDF)</span>
           </button>
         </div>
@@ -402,7 +329,7 @@ export function CartView({
                     {/* Topo do Comerciante */}
                     <div className="flex items-start justify-between gap-4 border-b border-border/80 pb-4">
                       <div>
-                        <span className="text-xs font-bold text-[#FF8A00] uppercase tracking-wider">
+                        <span className="text-xs font-bold text-green-600 uppercase tracking-wider">
                           KUBIKA Fatura Proforma
                         </span>
                         <h3 className="text-lg font-bold text-ink-900 mt-0.5">
@@ -439,7 +366,7 @@ export function CartView({
                     {/* Resumo do Subtotal */}
                     <div className="mt-4 border-t border-border/80 pt-3 flex justify-between items-baseline">
                       <span className="text-xs font-bold text-slate-700">Subtotal deste Vendedor:</span>
-                      <span className="text-lg font-black text-[#FF8A00]">
+                      <span className="text-lg font-black text-green-600">
                         {formatPrice(group.subtotal, "AOA")}
                       </span>
                     </div>
@@ -447,7 +374,7 @@ export function CartView({
                     {/* Indicação de Entrega & Pagamento */}
                     <div className="mt-3 rounded-lg bg-slate-50 p-2 text-[11px] text-slate-600 space-y-0.5">
                       <p><span className="font-semibold">Entrega:</span> {deliveryMode === "DELIVERY" ? "Estafeta ao domicílio" : "Levantamento na loja"}</p>
-                      <p><span className="font-semibold">Pagamento:</span> {paymentMethod === "MULTICAIXA" ? `Multicaixa Express (Ref: ${multicaixaRef})` : "Direto ao vendedor"}</p>
+                      <p><span className="font-semibold">Pagamento:</span> Direto ao vendedor</p>
                     </div>
                   </div>
 
@@ -460,7 +387,6 @@ export function CartView({
                         rel="noopener noreferrer"
                         className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-[#1EBE5D] transition"
                       >
-                        <span>💬</span>
                         <span>Enviar Encomenda por WhatsApp</span>
                       </a>
                     ) : null}
@@ -470,7 +396,7 @@ export function CartView({
                         href={telHref}
                         className="inline-flex items-center gap-1.5 rounded-xl border border-border px-3 py-2 text-xs font-semibold text-ink-900 hover:bg-slate-50 transition"
                       >
-                        <span>📞 Ligar</span>
+                        <span>Ligar</span>
                       </a>
                     ) : null}
                   </div>
@@ -487,7 +413,7 @@ export function CartView({
       {invoiceMode === "UNIFIED" && (
         <div className="rounded-2xl border border-border bg-white p-8 shadow-sm print:border-none print:shadow-none print:p-0">
           {/* Cabeçalho da Fatura Proforma */}
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b-2 border-[#FF8A00] pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b-2 border-green-600 pb-6">
             <div>
               <KumbuLogo size="md" />
               <p className="mt-2 text-xs font-medium text-slate-500">
@@ -497,7 +423,7 @@ export function CartView({
             </div>
 
             <div className="sm:text-right">
-              <span className="inline-block rounded-md bg-[#FF8A00]/10 px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider text-[#FF8A00]">
+              <span className="inline-block rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider text-green-600">
                 Fatura Proforma Consolidada
               </span>
               <p className="mt-2 text-lg font-black text-ink-900">{invoiceNumber}</p>
@@ -550,31 +476,7 @@ export function CartView({
             </table>
           </div>
 
-          {/* Dados de Pagamento Multicaixa se selecionado */}
-          {paymentMethod === "MULTICAIXA" && (
-            <div className="mt-6 rounded-xl border border-[#FF8A00]/30 bg-[#FFF8F0] p-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h4 className="font-bold text-[#0B0B0D] text-sm">Dados de Pagamento Multicaixa Express (EMIS):</h4>
-                  <p className="text-xs text-[#687280]">Utilize os dados abaixo no seu aplicativo bancário ou ATM:</p>
-                </div>
-                <div className="flex gap-4 font-mono text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-500 block uppercase">Entidade</span>
-                    <span className="font-bold text-ink-900 text-sm">00542</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 block uppercase">Referência</span>
-                    <span className="font-bold text-ink-900 text-sm">{multicaixaRef}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-500 block uppercase">Montante</span>
-                    <span className="font-bold text-[#FF8A00] text-sm">{formatPrice(finalTotal, "AOA")}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+
 
           {/* Totais e Resumo Financeiro */}
           <div className="mt-8 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-t-2 border-border pt-6">
@@ -595,20 +497,13 @@ export function CartView({
               {deliveryMode === "DELIVERY" && (
                 <div className="flex justify-between text-slate-600">
                   <span>Taxa de Entrega (Estafeta):</span>
-                  <span className="font-semibold text-[#FF8A00]">{formatPrice(deliveryFee, "AOA")}</span>
-                </div>
-              )}
-
-              {paymentMethod === "MULTICAIXA" && (
-                <div className="flex justify-between text-slate-600">
-                  <span>Taxa de Intermediação (1.5%):</span>
-                  <span className="font-semibold text-[#FF8A00]">{formatPrice(serviceFee, "AOA")}</span>
+                  <span className="font-semibold text-green-600">{formatPrice(deliveryFee, "AOA")}</span>
                 </div>
               )}
 
               <div className="border-t border-border pt-2 flex justify-between items-baseline">
                 <span className="text-base font-bold text-ink-900">Total a Liquidar:</span>
-                <span className="text-2xl font-black text-[#FF8A00]">
+                <span className="text-2xl font-black text-green-600">
                   {formatPrice(finalTotal, "AOA")}
                 </span>
               </div>

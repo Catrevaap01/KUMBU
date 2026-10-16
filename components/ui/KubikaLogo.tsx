@@ -34,15 +34,15 @@ export function KubikaIcon({
       {...props}
     >
       <defs>
-        {/* Laranja Primário KUBIKA com brilho sutil */}
+        {/* Verde Primário KUBIKA */}
         <linearGradient id="kubika-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFA12E" />
-          <stop offset="100%" stopColor="#FF7A00" />
+          <stop offset="0%" stopColor="#16a34a" />
+          <stop offset="100%" stopColor="#15803d" />
         </linearGradient>
 
         <linearGradient id="kubika-orange-tag" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FF9514" />
-          <stop offset="100%" stopColor="#E66E00" />
+          <stop offset="0%" stopColor="#22c55e" />
+          <stop offset="100%" stopColor="#16a34a" />
         </linearGradient>
 
         {/* Máscara para o furo da etiqueta de preço (transparent hole) */}
@@ -166,7 +166,7 @@ export function KubikaLogo({
       <div className="flex flex-col">
         <div className={`flex items-baseline font-black leading-none ${textSizes[size]} ${textColor} font-sans uppercase tracking-widest`}>
           <span>KUBIK</span>
-          <span className="text-[#FF8A00]">A</span>
+          <span className="text-green-600">A</span>
         </div>
         {showTagline && (
           <span className={`mt-1 font-bold leading-none ${taglineSizes[size]} ${taglineColor} uppercase`}>

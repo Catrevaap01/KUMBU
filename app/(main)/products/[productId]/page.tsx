@@ -59,7 +59,7 @@ export default async function ProductPage({
                 </p>
                 <div className="mt-1.5 flex items-center gap-1.5 text-xs font-semibold text-green-700">
                   <span className="size-1.5 rounded-full bg-green-600" />
-                  <span>Exclusivo: Apenas Comerciantes Verificados ✓</span>
+                  <span>Exclusivo: Apenas Comerciantes Verificados</span>
                 </div>
               </div>
             </div>

@@ -39,8 +39,7 @@ export function SignUpForm({ from }: { from?: string }) {
                 : "border-border bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
             }`}
           >
-            <span className="text-xl">🛒</span>
-            <span className="mt-1 font-bold text-sm">Consumidor</span>
+            <span className="font-bold text-sm">Consumidor</span>
             <span className="mt-0.5 text-[11px] text-slate-500">
               Pesquisar, comparar e criar carrinho/faturas
             </span>
@@ -55,8 +54,7 @@ export function SignUpForm({ from }: { from?: string }) {
                 : "border-border bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
             }`}
           >
-            <span className="text-xl">🏪</span>
-            <span className="mt-1 font-bold text-sm">Vendedor / Loja</span>
+            <span className="font-bold text-sm">Vendedor / Loja</span>
             <span className="mt-0.5 text-[11px] text-slate-500">
               Publicar preços e gerir catálogo de produtos
             </span>

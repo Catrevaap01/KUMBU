@@ -50,10 +50,10 @@ export default async function ConsumerDashboardPage() {
   return (
     <main className="container-page py-10 space-y-8">
       {/* Banner de Boas-Vindas */}
-      <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-[#0B0B0D] via-[#1A1815] to-[#2B1B0E] p-6 text-white shadow-md sm:p-8">
+      <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-ink-950 via-ink-900 to-green-950 p-6 text-white shadow-md sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="inline-block rounded-full bg-[#FF8A00] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            <span className="inline-block rounded-full bg-green-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
               Painel do Consumidor
             </span>
             <h1 className="mt-2 text-2xl font-black sm:text-3xl">
@@ -65,11 +65,11 @@ export default async function ConsumerDashboardPage() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <Button href="/cart" className="!bg-[#FFB020] !text-ink-950 font-bold hover:!bg-amber-400">
-              🛒 Ver Carrinho & Faturas
+            <Button href="/cart" className="!bg-green-600 !text-white font-bold hover:!bg-green-500">
+              Ver Carrinho & Faturas
             </Button>
             <Button href="/" variant="ghost" className="!text-white border-white/30 hover:!bg-white/10">
-              🔍 Comparar Preços
+              Comparar Preços
             </Button>
           </div>
         </div>
@@ -78,8 +78,7 @@ export default async function ConsumerDashboardPage() {
       {/* Cartões de Ações Rápidas */}
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-          <span className="text-2xl">🛒</span>
-          <h2 className="mt-2 text-base font-bold text-ink-900">Lista & Faturas</h2>
+          <h2 className="text-base font-bold text-ink-900">Lista & Faturas</h2>
           <p className="mt-1 text-xs text-slate-500">
             Adicione itens de vários comerciantes ao seu carrinho e gere faturas únicas ou separadas.
           </p>
@@ -92,8 +91,7 @@ export default async function ConsumerDashboardPage() {
         </div>
 
         <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-          <span className="text-2xl">📢</span>
-          <h2 className="mt-2 text-base font-bold text-ink-900">Contribuir com Preços</h2>
+          <h2 className="text-base font-bold text-ink-900">Contribuir com Preços</h2>
           <p className="mt-1 text-xs text-slate-500">
             Viu um bom preço no mercado? Partilhe com a comunidade e ajude outras famílias a poupar.
           </p>
@@ -106,8 +104,7 @@ export default async function ConsumerDashboardPage() {
         </div>
 
         <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-          <span className="text-2xl">🏪</span>
-          <h2 className="mt-2 text-base font-bold text-ink-900">Vender no KUMBU</h2>
+          <h2 className="text-base font-bold text-ink-900">Vender no KUMBU</h2>
           <p className="mt-1 text-xs text-slate-500">
             Tem uma mercearia, bancada ou armazém? Registe a sua loja para divulgar produtos e receber encomendas.
           </p>
@@ -173,7 +170,7 @@ export default async function ConsumerDashboardPage() {
                     <p className="text-slate-500">{conf.priceReport.seller.businessName}</p>
                   </div>
                   <span className="rounded bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-800">
-                    Confirmado ✓
+                    Confirmado
                   </span>
                 </div>
               ))}

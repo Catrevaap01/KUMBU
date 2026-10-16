@@ -56,7 +56,7 @@ export function PriceReportCard({
       <div>
         {highlighted ? (
           <div className="mb-3 flex flex-wrap gap-2">
-            {isBestValue ? <Badge tone="accent">★ MELHOR VALOR</Badge> : null}
+            {isBestValue ? <Badge tone="accent">MELHOR VALOR</Badge> : null}
             {isLowestReported ? <Badge tone="success" dot>MENOR PREÇO</Badge> : null}
           </div>
         ) : null}

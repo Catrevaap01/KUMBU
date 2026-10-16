@@ -15,16 +15,15 @@ const METRICS = [
   { key: "userCount", label: "Utilizadores", href: "/admin/users" },
 ] as const;
 
+import { AdminHeader } from "@/components/admin/AdminHeader";
+
 export default async function AdminOverviewPage() {
   await requireAdmin("/admin");
   const overview = await getAdminOverview();
 
   return (
     <main className="container-page flex flex-col gap-6 py-10">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-ink-900">Administração</h1>
-        <p className="text-sm text-slate-600">Moderação e atividade da plataforma.</p>
-      </div>
+      <AdminHeader />
 
       <AdminNav active="/admin" />
 

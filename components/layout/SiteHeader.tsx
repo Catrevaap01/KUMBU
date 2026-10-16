@@ -12,7 +12,7 @@ export async function SiteHeader() {
   const showCart = !isSeller && !isAdmin;
 
   return (
-    <header className="border-b border-border bg-[#FBFAFC]/95 sticky top-0 z-40 backdrop-blur-md">
+    <header className="border-b border-border bg-white/95 sticky top-0 z-40 backdrop-blur-md">
       <div className="container-page flex h-14 items-center justify-between gap-2">
         <Link href="/" aria-label="KUBIKA Início" className="flex items-center gap-2 shrink-0">
           <KubikaLogo size="sm" showTagline={false} />
@@ -27,21 +27,23 @@ export async function SiteHeader() {
               {user.systemRole === "ADMIN" ? (
                 <Link
                   href="/admin"
-                  className="text-xs sm:text-sm font-semibold text-[#FF8A00] hover:text-[#E67A00]"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-900 bg-slate-900 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-slate-800 transition"
                 >
-                  Administração
+                  <span className="size-2 rounded-full bg-green-400 animate-pulse" />
+                  <span>Painel Admin</span>
                 </Link>
               ) : user.sellerId ? (
                 <Link
                   href="/dashboard/seller"
-                  className="text-xs sm:text-sm font-semibold text-[#0B0B0D] hover:text-[#FF8A00]"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-green-600 bg-green-50 px-3 py-1.5 text-xs font-bold text-green-800 hover:bg-green-100 transition"
                 >
-                  Painel do Vendedor
+                  <span className="size-2 rounded-full bg-green-600" />
+                  <span>Painel da Loja</span>
                 </Link>
               ) : (
                 <Link
                   href="/dashboard/consumer"
-                  className="text-xs sm:text-sm font-semibold text-[#0B0B0D] hover:text-[#FF8A00]"
+                  className="rounded-lg border border-border bg-white px-3 py-1.5 text-xs font-semibold text-ink-900 hover:border-green-600 hover:text-green-700 transition"
                 >
                   Meu Painel
                 </Link>

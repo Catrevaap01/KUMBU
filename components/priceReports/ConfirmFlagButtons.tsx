@@ -47,7 +47,7 @@ export function ConfirmFlagButtons({
 
       <div className="flex flex-wrap items-center gap-2">
         {viewerHasConfirmed ? (
-          <span className="text-xs font-medium text-green-600">✓ Confirmou este preço</span>
+          <span className="text-xs font-medium text-green-600">Confirmou este preço</span>
         ) : (
           <form action={confirmFormAction}>
             <Button type="submit" variant="ghost" className="!px-3 !py-1.5 text-xs">
@@ -57,7 +57,7 @@ export function ConfirmFlagButtons({
         )}
 
         {viewerHasFlagged ? (
-          <span className="text-xs font-medium text-red-600">⚑ Sinalizou este preço</span>
+          <span className="text-xs font-medium text-red-600">Sinalizou este preço</span>
         ) : (
           <Button
             type="button"

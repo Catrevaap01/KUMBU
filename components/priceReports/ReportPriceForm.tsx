@@ -220,7 +220,7 @@ export function ReportPriceForm({
       </Field>
 
       <Field label="Observações adicionais (opcional)" htmlFor="notes" error={state.fieldErrors?.notes}>
-        <Textarea id="notes" name="notes" rows={2} placeholder="Ex: Promoção válida até sexta-feira, pagamento por Multicaixa Express disponível..." />
+        <Textarea id="notes" name="notes" rows={2} placeholder="Ex: Promoção válida até sexta-feira, pagamento direto ao comerciante..." />
       </Field>
 
       <SubmitButton pendingLabel="A enviar…">Submeter Relato de Preço</SubmitButton>

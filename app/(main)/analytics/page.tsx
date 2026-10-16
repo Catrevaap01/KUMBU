@@ -28,7 +28,7 @@ export default async function AnalyticsPage() {
       {/* Hero Header */}
       <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-[#0B0B0D] via-[#16161A] to-[#1E120A] p-6 sm:p-10 text-white shadow-md">
         <div className="max-w-3xl space-y-3">
-          <Badge tone="accent" dot className="!text-xs font-bold uppercase tracking-wider !bg-[#FF8A00] !text-white border-none">
+          <Badge tone="accent" dot className="!text-xs font-bold uppercase tracking-wider !bg-green-600 !text-white border-none">
             KUBIKA Data & Market Intelligence (B2B)
           </Badge>
           <h1 className="text-2xl sm:text-4xl font-black tracking-tight">
@@ -42,7 +42,7 @@ export default async function AnalyticsPage() {
         {/* Big Numbers */}
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 border-t border-white/10 pt-6">
           <div>
-            <p className="text-2xl sm:text-3xl font-extrabold text-[#FF8A00]">18</p>
+            <p className="text-2xl sm:text-3xl font-extrabold text-green-400">18</p>
             <p className="text-xs text-slate-400 mt-1">Províncias Monitoradas</p>
           </div>
           <div>
@@ -54,7 +54,7 @@ export default async function AnalyticsPage() {
             <p className="text-xs text-slate-400 mt-1">Comerciantes Auditados</p>
           </div>
           <div>
-            <p className="text-2xl sm:text-3xl font-extrabold text-[#FF8A00]">{totalProducts}</p>
+            <p className="text-2xl sm:text-3xl font-extrabold text-green-400">{totalProducts}</p>
             <p className="text-xs text-slate-400 mt-1">Itens Essenciais no Catálogo</p>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default async function AnalyticsPage() {
               {PROVINCE_STATS.map((stat) => (
                 <tr key={stat.province} className="hover:bg-slate-50 transition">
                   <td className="py-3.5 px-4 font-semibold text-[#0B0B0D]">{stat.province}</td>
-                  <td className="py-3.5 px-4 font-bold text-[#FF8A00]">{stat.avgBasket}</td>
+                  <td className="py-3.5 px-4 font-bold text-green-600">{stat.avgBasket}</td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
@@ -108,10 +108,10 @@ export default async function AnalyticsPage() {
       </section>
 
       {/* Seção Comercial B2B: Monetização e Venda de Relatórios */}
-      <section className="rounded-2xl border border-[#FF8A00]/30 bg-gradient-to-br from-[#FFF8F0] via-white to-[#FFF4E5] p-6 sm:p-8 shadow-xs">
+      <section className="rounded-2xl border border-green-600/30 bg-gradient-to-br from-green-50/50 via-white to-green-50/30 p-6 sm:p-8 shadow-xs">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
-            <Badge tone="accent" dot className="!bg-[#FF8A00] !text-white border-none">Serviços Corporativos B2B</Badge>
+            <Badge tone="accent" dot className="!bg-green-600 !text-white border-none">Serviços Corporativos B2B</Badge>
             <h2 className="text-xl sm:text-2xl font-bold text-[#0B0B0D]">
               Precisa de Relatórios Executivos ou Acesso à API de Preços?
             </h2>
@@ -119,19 +119,19 @@ export default async function AnalyticsPage() {
               Fornecemos relatórios analíticos em formato PDF/Excel e API REST em tempo real para departamentos de compras, análise de risco financeiro, logística e consultoria económica.
             </p>
             <ul className="grid sm:grid-cols-2 gap-2 text-xs font-semibold text-[#0B0B0D] pt-2">
-              <li>✓ Séries temporais de preços por produto</li>
-              <li>✓ Comparativo de margens entre cadeias de distribuição</li>
-              <li>✓ Previsão de escassez e abastecimento regional</li>
-              <li>✓ Dados exportáveis via API para ERPs</li>
+              <li>Séries temporais de preços por produto</li>
+              <li>Comparativo de margens entre cadeias de distribuição</li>
+              <li>Previsão de escassez e abastecimento regional</li>
+              <li>Dados exportáveis via API para ERPs</li>
             </ul>
           </div>
 
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
             <a
               href="mailto:parcerias@kubika.ao?subject=Solicitação de Relatório de Mercado B2B — KUBIKA Data"
-              className="inline-flex items-center justify-center rounded-xl bg-[#FF8A00] px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#E67A00] transition"
+              className="inline-flex items-center justify-center rounded-xl bg-green-600 px-6 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-green-500 transition"
             >
-              📊 Solicitar Proposta B2B
+              Solicitar Proposta B2B
             </a>
             <Link
               href="/"

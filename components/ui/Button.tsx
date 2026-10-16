@@ -4,15 +4,15 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "brand-dark";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-150 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF8A00]";
+  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-150 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-[#FF8A00] text-white shadow-sm shadow-[#FF8A00]/25 hover:bg-[#E67A00] hover:shadow-md hover:shadow-[#FF8A00]/30 font-bold",
-  secondary: "bg-[#0B0B0D] text-white shadow-sm hover:bg-[#1E1F24]",
-  "brand-dark": "bg-[#0B0B0D] text-white hover:bg-[#1E1F24] border border-white/10",
+    "bg-green-600 text-white shadow-sm shadow-green-600/25 hover:bg-green-500 hover:shadow-md hover:shadow-green-600/30 font-bold",
+  secondary: "bg-ink-900 text-white shadow-sm hover:bg-ink-800",
+  "brand-dark": "bg-ink-900 text-white hover:bg-ink-800 border border-white/10",
   ghost:
-    "border border-border text-[#0B0B0D] hover:border-[#FF8A00]/40 hover:bg-[#FF8A00]/5 hover:text-[#FF8A00]",
+    "border border-border text-ink-900 hover:border-green-600/40 hover:bg-green-600/5 hover:text-green-600",
   danger: "bg-red-600 text-white shadow-sm shadow-red-600/25 hover:bg-red-500",
 };
 

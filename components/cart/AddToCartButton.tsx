@@ -22,13 +22,12 @@ export function AddToCartButton({
     <button
       type="button"
       onClick={handleAdd}
-      className={`inline-flex items-center justify-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
+      className={`inline-flex items-center justify-center rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
         added
           ? "border-green-600 bg-green-600 text-white shadow-sm"
           : "border-border bg-white text-ink-900 hover:border-green-600 hover:bg-green-50/50 hover:text-green-800"
       } ${className}`}
     >
-      <span>{added ? "✓" : "🛒"}</span>
       <span>{added ? "No Carrinho!" : "+ Carrinho"}</span>
     </button>
   );
