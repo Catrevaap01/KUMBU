@@ -6,6 +6,7 @@ import { formatPrice } from "@/lib/format";
 import { buildWhatsAppUrl, cleanAngolaPhone, buildCartOrderMessage } from "@/lib/contact/whatsapp";
 import { Button } from "@/components/ui/Button";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
+import { recordInvoiceOrderAction } from "@/lib/actions/orders";
 
 export function CartView({
   userName,
@@ -31,6 +32,8 @@ export function CartView({
   // Pilar 5: Logística Local
   const [deliveryMode, setDeliveryMode] = useState<"PICKUP" | "DELIVERY">("PICKUP");
   const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [isNotifying, setIsNotifying] = useState(false);
+  const [notificationSent, setNotificationSent] = useState(false);
 
   if (!isLoaded) {
     return (
@@ -69,8 +72,32 @@ export function CartView({
   const deliveryFee = deliveryMode === "DELIVERY" ? 1500 : 0;
   const finalTotal = totalPrice + deliveryFee;
 
-  const handlePrint = () => {
-    window.print();
+  const handlePrint = async () => {
+    setIsNotifying(true);
+    try {
+      await recordInvoiceOrderAction({
+        invoiceNumber,
+        customerName: customerName.trim() || undefined,
+        deliveryMode,
+        deliveryAddress: deliveryAddress.trim() || undefined,
+        items: items.map((i) => ({
+          reportId: i.reportId,
+          productName: i.productName,
+          quantity: i.quantity,
+          price: i.price,
+          unit: i.unit,
+          sellerId: i.sellerId,
+          sellerName: i.sellerName,
+        })),
+        finalTotal,
+      });
+      setNotificationSent(true);
+    } catch (err) {
+      console.error("Falha ao registar notificação de fatura:", err);
+    } finally {
+      setIsNotifying(false);
+      window.print();
+    }
   };
 
   const deliveryTextFormatted =
@@ -81,7 +108,7 @@ export function CartView({
   const paymentTextFormatted = "Pagamento Direto / No ato da entrega";
 
   return (
-    <div className="container-page py-8 space-y-8">
+    <div className="container-page py-8 space-y-8 print:py-0 print:space-y-0 print:p-0 print:max-w-none">
       {/* Cabeçalho da Página (Oculto na Impressão) */}
       <div className="print:hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
@@ -274,11 +301,18 @@ export function CartView({
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#0B0B0D] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#1E1F24] transition"
+            disabled={isNotifying}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[#0B0B0D] px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-[#1E1F24] transition disabled:opacity-60"
           >
-            <span>Imprimir / Baixar Fatura (PDF)</span>
+            <span>{isNotifying ? "A registar notificação…" : "Imprimir / Baixar Fatura (PDF)"}</span>
           </button>
         </div>
+
+        {notificationSent && (
+          <div className="mt-2 text-xs font-semibold text-green-800 bg-green-50 border border-green-200 px-3.5 py-2 rounded-xl animate-fade-in">
+            Notificação registada com sucesso: o comerciante {deliveryMode === "DELIVERY" ? "e a central de logística KUBIKA " : ""}receberam o alerta automático de que vai efetuar o pagamento.
+          </div>
+        )}
       </div>
 
       {/* ============================================================== */}
@@ -411,25 +445,25 @@ export function CartView({
       {/* MODO 2: FATURA ÚNICA CONSOLIDADA (PROFORMA GLOBAL) */}
       {/* ============================================================== */}
       {invoiceMode === "UNIFIED" && (
-        <div className="rounded-2xl border border-border bg-white p-8 shadow-sm print:border-none print:shadow-none print:p-0">
+        <div className="rounded-2xl border border-border bg-white p-8 shadow-sm print:border-none print:shadow-none print:p-0 print:m-0">
           {/* Cabeçalho da Fatura Proforma */}
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b-2 border-green-600 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b-2 border-green-600 pb-6 print:pb-3 print:gap-2">
             <div>
-              <KumbuLogo size="md" />
-              <p className="mt-2 text-xs font-medium text-slate-500">
+              <KumbuLogo size="sm" />
+              <p className="mt-1 text-xs font-medium text-slate-500 print:text-[10px]">
                 Plataforma de Inteligência de Preços de Angola
               </p>
-              <p className="text-xs text-slate-400">www.kubika.ao · Luanda, Angola</p>
+              <p className="text-xs text-slate-400 print:text-[9.5px]">www.kubika.ao · Luanda, Angola</p>
             </div>
 
             <div className="sm:text-right">
-              <span className="inline-block rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider text-green-600">
+              <span className="inline-block rounded-md bg-green-600/10 px-2.5 py-1 text-xs font-extrabold uppercase tracking-wider text-green-600 print:text-[9.5px] print:px-2 print:py-0.5">
                 Fatura Proforma Consolidada
               </span>
-              <p className="mt-2 text-lg font-black text-ink-900">{invoiceNumber}</p>
-              <p className="text-xs text-slate-500">Emissão: {currentDateFormatted}</p>
+              <p className="mt-1 text-base font-black text-ink-900 print:text-sm">{invoiceNumber}</p>
+              <p className="text-xs text-slate-500 print:text-[10px]">Emissão: {currentDateFormatted}</p>
               {customerName && (
-                <p className="mt-1 text-xs font-bold text-ink-900">
+                <p className="text-xs font-bold text-ink-900 print:text-[10px]">
                   Cliente: <span className="font-semibold text-slate-700">{customerName}</span>
                 </p>
               )}
@@ -437,37 +471,37 @@ export function CartView({
           </div>
 
           {/* Tabela de Produtos Consolidada */}
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="mt-5 overflow-x-auto print:mt-2">
+            <table className="w-full text-left text-xs print:text-[11px]">
               <thead>
-                <tr className="border-b border-border bg-slate-50 text-slate-500 uppercase font-bold tracking-wider">
-                  <th className="py-3 px-3">Item / Produto</th>
-                  <th className="py-3 px-3">Estabelecimento / Loja</th>
-                  <th className="py-3 px-3 text-center">Qtd</th>
-                  <th className="py-3 px-3 text-right">Preço Unitário</th>
-                  <th className="py-3 px-3 text-right">Subtotal</th>
+                <tr className="border-b border-border bg-slate-50 text-slate-500 uppercase font-bold tracking-wider print:bg-slate-100">
+                  <th className="py-2.5 px-3 print:py-1.5 print:px-2">Item / Produto</th>
+                  <th className="py-2.5 px-3 print:py-1.5 print:px-2">Estabelecimento / Loja</th>
+                  <th className="py-2.5 px-3 text-center print:py-1.5 print:px-2">Qtd</th>
+                  <th className="py-2.5 px-3 text-right print:py-1.5 print:px-2">Preço Unitário</th>
+                  <th className="py-2.5 px-3 text-right print:py-1.5 print:px-2">Subtotal</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {items.map((item) => (
-                  <tr key={item.reportId}>
-                    <td className="py-3 px-3 font-semibold text-ink-900">
+                  <tr key={item.reportId} className="print-avoid-break">
+                    <td className="py-2.5 px-3 font-semibold text-ink-900 print:py-1.5 print:px-2">
                       {item.productName}
-                      <span className="text-[11px] text-slate-400 block font-normal">
-                        {item.unit} {item.category ? `· ${item.category}` : ""}
+                      <span className="text-[11px] text-slate-400 block font-normal print:inline print:text-[10px] print:ml-1">
+                        ({item.unit})
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-slate-600">
+                    <td className="py-2.5 px-3 text-slate-600 print:py-1.5 print:px-2">
                       <span className="font-semibold">{item.sellerName}</span>
-                      <span className="text-[11px] text-slate-400 block">
-                        {item.sellerCity ?? "Angola"}
+                      <span className="text-[11px] text-slate-400 block print:inline print:text-[10px] print:ml-1">
+                        ({item.sellerCity ?? "Angola"})
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-center font-bold text-ink-900">{item.quantity}</td>
-                    <td className="py-3 px-3 text-right text-slate-600">
+                    <td className="py-2.5 px-3 text-center font-bold text-ink-900 print:py-1.5 print:px-2">{item.quantity}</td>
+                    <td className="py-2.5 px-3 text-right text-slate-600 print:py-1.5 print:px-2">
                       {formatPrice(item.price, item.currency)}
                     </td>
-                    <td className="py-3 px-3 text-right font-extrabold text-ink-900">
+                    <td className="py-2.5 px-3 text-right font-extrabold text-ink-900 print:py-1.5 print:px-2">
                       {formatPrice(item.price * item.quantity, item.currency)}
                     </td>
                   </tr>
@@ -476,19 +510,17 @@ export function CartView({
             </table>
           </div>
 
-
-
           {/* Totais e Resumo Financeiro */}
-          <div className="mt-8 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-t-2 border-border pt-6">
-            <div className="max-w-md text-xs text-slate-500 space-y-1">
+          <div className="mt-6 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-t-2 border-border pt-5 print:mt-3 print:pt-2 print:border-t print:gap-3 print-avoid-break">
+            <div className="max-w-md text-xs text-slate-500 space-y-1 print:text-[9.5px] print:space-y-0.5 print:max-w-xs">
               <p className="font-bold text-ink-900">Termos & Observações:</p>
-              <p>• Esta fatura é um documento proforma oficial gerado pela plataforma KUBIKA.</p>
+              <p>• Documento proforma oficial KUBIKA para cotação e encomenda direta.</p>
               <p>• Modalidade: {deliveryTextFormatted}.</p>
               <p>• Pagamento: {paymentTextFormatted}.</p>
               <p>• Suporte & Validação: suporte@kubika.ao · Luanda, Angola.</p>
             </div>
 
-            <div className="w-full sm:w-80 space-y-2 text-sm">
+            <div className="w-full sm:w-80 space-y-2 text-sm print:w-64 print:space-y-1 print:text-xs">
               <div className="flex justify-between text-slate-600">
                 <span>Subtotal dos Produtos:</span>
                 <span className="font-semibold text-ink-900">{formatPrice(totalPrice, "AOA")}</span>
@@ -501,9 +533,9 @@ export function CartView({
                 </div>
               )}
 
-              <div className="border-t border-border pt-2 flex justify-between items-baseline">
-                <span className="text-base font-bold text-ink-900">Total a Liquidar:</span>
-                <span className="text-2xl font-black text-green-600">
+              <div className="border-t border-border pt-1.5 flex justify-between items-baseline print:pt-1">
+                <span className="text-sm font-bold text-ink-900 print:text-xs">Total a Liquidar:</span>
+                <span className="text-xl font-black text-green-600 print:text-base">
                   {formatPrice(finalTotal, "AOA")}
                 </span>
               </div>

@@ -126,8 +126,9 @@ model Seller {
   whatsappClicks     Int                      @default(0)
   createdAt          DateTime                 @default(now())
 
-  user         User?         @relation(fields: [userId], references: [id])
-  priceReports PriceReport[]
+  user               User?               @relation(fields: [userId], references: [id])
+  priceReports       PriceReport[]
+  orderNotifications OrderNotification[]
 
   @@index([businessName])
   @@index([country, city])
@@ -223,3 +224,33 @@ model AuditLog {
 
   @@index([entityType, entityId])
 }
+
+enum OrderNotificationStatus {
+  PENDING_PAYMENT
+  PAYMENT_CONFIRMED
+  CANCELLED
+}
+
+model OrderNotification {
+  id              String                  @id @default(cuid())
+  invoiceNumber   String
+  customerName    String
+  customerPhone   String?
+  sellerId        String?
+  sellerName      String
+  totalAmount     Decimal                 @db.Decimal(10, 2)
+  deliveryMode    String                  // "PICKUP" | "DELIVERY"
+  deliveryAddress String?
+  itemsSummary    String                  // Resumo dos itens da fatura
+  status          OrderNotificationStatus @default(PENDING_PAYMENT)
+  isPlatformAlert Boolean                 @default(false)
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  seller          Seller?                 @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+
+  @@index([sellerId])
+  @@index([isPlatformAlert])
+  @@index([createdAt])
+}
+

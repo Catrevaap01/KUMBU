@@ -10,12 +10,17 @@ import { Button } from "@/components/ui/Button";
 export const metadata: Metadata = { title: "Painel do Comerciante — KUBIKA" };
 
 import Link from "next/link";
+import { getSellerOrderNotifications } from "@/lib/actions/orders";
+import { SellerOrderNotificationsCard } from "@/components/dashboard/SellerOrderNotificationsCard";
 
 export default async function SellerDashboardPage() {
   const user = await requireUser("/dashboard/seller");
   if (!user.sellerId) redirect("/sellers/register");
 
-  const result = await getSellerListings(user.sellerId, { viewerId: user.id });
+  const [result, orderNotifications] = await Promise.all([
+    getSellerListings(user.sellerId, { viewerId: user.id }),
+    getSellerOrderNotifications(user.sellerId),
+  ]);
   const listings = result?.listings ?? [];
   const seller = result?.seller;
 
@@ -83,6 +88,9 @@ export default async function SellerDashboardPage() {
           isFeatured={seller.isFeatured}
         />
       )}
+
+      {/* Notificações Automáticas de Faturas dos Clientes */}
+      <SellerOrderNotificationsCard notifications={orderNotifications} />
 
       {/* Tabela de Preços e Anúncios */}
       {listings.length === 0 ? (

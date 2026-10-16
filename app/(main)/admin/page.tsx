@@ -16,16 +16,24 @@ const METRICS = [
 ] as const;
 
 import { AdminHeader } from "@/components/admin/AdminHeader";
+import { getPlatformDeliveryNotifications } from "@/lib/actions/orders";
+import { PlatformDeliveryAlertsCard } from "@/components/admin/PlatformDeliveryAlertsCard";
 
 export default async function AdminOverviewPage() {
   await requireAdmin("/admin");
-  const overview = await getAdminOverview();
+  const [overview, deliveryAlerts] = await Promise.all([
+    getAdminOverview(),
+    getPlatformDeliveryNotifications(),
+  ]);
 
   return (
     <main className="container-page flex flex-col gap-6 py-10">
       <AdminHeader />
 
       <AdminNav active="/admin" />
+
+      {/* Alertas de Logística / Entrega ao Domicílio da Plataforma */}
+      <PlatformDeliveryAlertsCard alerts={deliveryAlerts} />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {METRICS.map((metric) => {

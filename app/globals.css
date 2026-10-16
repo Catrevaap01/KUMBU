@@ -105,3 +105,52 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ========================================================================== */
+/* Regras de Impressão e PDF — Fatura Proforma A4 Limpa e Otimizada          */
+/* ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #0b0b0d !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  header,
+  footer,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .container-page {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+
