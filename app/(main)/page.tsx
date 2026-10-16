@@ -203,8 +203,7 @@ export default async function HomePage() {
       ) : (
         <section className="container-page pb-16">
           <div className="rounded-2xl border border-dashed border-border bg-white p-8 text-center sm:p-12 shadow-xs">
-            <span className="text-4xl">🏪</span>
-            <h3 className="mt-3 text-lg font-bold text-[#0B0B0D]">
+            <h3 className="text-lg font-bold text-[#0B0B0D]">
               Produtos Publicados Exclusivamente por Comerciantes
             </h3>
             <p className="mx-auto mt-2 max-w-lg text-sm text-[#687280]">
