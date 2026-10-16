@@ -7,12 +7,12 @@ import { Button } from "@/components/ui/Button";
 import { SponsoredBanner } from "@/components/ads/SponsoredBanner";
 
 const QUICK_CATEGORIES = [
-  { name: "Alimentação", icon: "🌾", query: "arroz" },
-  { name: "Bebidas", icon: "🥤", query: "sumo" },
-  { name: "Higiene", icon: "🧼", query: "sabao" },
-  { name: "Óleos & Gorduras", icon: "🍶", query: "oleo" },
-  { name: "Laticínios", icon: "🥛", query: "leite" },
-  { name: "Carnes & Peixes", icon: "🍗", query: "frango" },
+  { name: "Alimentação", query: "arroz" },
+  { name: "Bebidas", query: "sumo" },
+  { name: "Higiene", query: "sabao" },
+  { name: "Óleos & Gorduras", query: "oleo" },
+  { name: "Laticínios", query: "leite" },
+  { name: "Carnes & Peixes", query: "frango" },
 ];
 
 const STEPS = [
@@ -85,10 +85,9 @@ export default async function HomePage() {
                 <Link
                   key={cat.name}
                   href={`/search?q=${encodeURIComponent(cat.query)}`}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3.5 py-1.5 text-xs font-semibold text-[#0B0B0D] shadow-xs transition hover:border-[#FF8A00] hover:text-[#FF8A00] hover:bg-[#FF8A00]/5 shrink-0"
+                  className="inline-flex items-center rounded-full border border-border bg-white px-4 py-1.5 text-xs font-semibold text-[#14915A] shadow-xs transition hover:border-[#0f7a4a] hover:bg-[#0f7a4a]/5 hover:text-[#0f7a4a] shrink-0"
                 >
-                  <span>{cat.icon}</span>
-                  <span>{cat.name}</span>
+                  {cat.name}
                 </Link>
               ))}
             </div>
