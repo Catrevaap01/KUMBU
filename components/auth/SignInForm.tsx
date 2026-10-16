@@ -31,10 +31,10 @@ export function SignInForm({ from }: { from?: string }) {
       <SubmitButton pendingLabel="A entrar…">Entrar</SubmitButton>
 
       <p className="text-center text-sm text-slate-600">
-        Novo no KUMBU?{" "}
+        Novo na KUBIKA?{" "}
         <Link
           href={from ? `/sign-up?from=${encodeURIComponent(from)}` : "/sign-up"}
-          className="font-semibold text-green-600 hover:underline"
+          className="font-semibold text-[#FF8A00] hover:underline"
         >
           Criar uma conta
         </Link>

@@ -2,24 +2,24 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "KUMBU — Compara. Poupa. Escolhe melhor.",
-    short_name: "KUMBU",
-    description: "Os melhores preços, em todos os mercados. Compare preços em Angola.",
+    name: "KUBIKA — Compara. Poupa. Escolhe melhor.",
+    short_name: "KUBIKA",
+    description: "Compara preços. Poupa. Escolhe melhor. Os melhores preços e ofertas em Angola.",
     start_url: "/",
     display: "standalone",
-    background_color: "#FFFFFF",
-    theme_color: "#0B5D3B",
+    background_color: "#0B0B0D",
+    theme_color: "#FF8A00",
     orientation: "portrait",
     categories: ["shopping", "finance", "business"],
     icons: [
       {
-        src: "/kumbu-icon.svg",
+        src: "/kubika-icon.svg",
         sizes: "any",
         type: "image/svg+xml",
         purpose: "any",
       },
       {
-        src: "/kumbu-icon.svg",
+        src: "/kubika-icon.svg",
         sizes: "any",
         type: "image/svg+xml",
         purpose: "maskable",

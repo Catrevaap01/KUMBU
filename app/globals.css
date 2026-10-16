@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink-950: #0b0f0d;
-  --color-ink-900: #121815;
-  --color-ink-800: #1c2420;
-  --color-ink-700: #2a352f;
-  --color-green-600: #0f7a4a;
-  --color-green-500: #14915a;
-  --color-green-400: #22a76c;
-  --color-amber-500: #f2a71b;
-  --color-amber-400: #f6bb46;
-  --color-slate-600: #4b5565;
-  --color-slate-500: #6b7385;
-  --color-mist: #f6f8fa;
-  --color-mist-200: #eef1f5;
-  --color-border: #e2e6ec;
+  /* KUBIKA Brand Palette */
+  --color-brand-orange: #FF8A00;
+  --color-brand-orange-hover: #E67A00;
+  --color-brand-orange-light: #FFF4E5;
+  --color-brand-black: #0B0B0D;
+  --color-brand-black-soft: #16161A;
+  --color-brand-yellow: #F6C23E;
+  --color-brand-gray: #687280;
+  --color-brand-gray-light: #E5E7EB;
+  --color-brand-white: #FBFAFC;
 
-  --background: #ffffff;
-  --foreground: var(--color-ink-900);
+  /* Ink Hierarchy */
+  --color-ink-950: #0B0B0D;
+  --color-ink-900: #121216;
+  --color-ink-800: #1F2026;
+  --color-ink-700: #32353E;
+
+  /* Brand Accents (Aligned with Orange & Yellow from Brand Book) */
+  --color-green-600: #FF8A00;
+  --color-green-500: #FFA024;
+  --color-green-400: #FFB352;
+  --color-amber-500: #F6C23E;
+  --color-amber-400: #FAD16B;
+
+  --color-slate-600: #4B5565;
+  --color-slate-500: #687280;
+  --color-mist: #FBFAFC;
+  --color-mist-200: #F1F3F7;
+  --color-border: #E5E7EB;
+
+  --background: #FBFAFC;
+  --foreground: #0B0B0D;
 }
 
 @theme inline {
+  --color-brand-orange: var(--color-brand-orange);
+  --color-brand-black: var(--color-brand-black);
+  --color-brand-yellow: var(--color-brand-yellow);
+  --color-brand-gray: var(--color-brand-gray);
+  --color-brand-white: var(--color-brand-white);
+
   --color-ink-950: var(--color-ink-950);
   --color-ink-900: var(--color-ink-900);
   --color-ink-800: var(--color-ink-800);
@@ -37,7 +58,7 @@
   --color-border: var(--color-border);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-montserrat);
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-fade-in: fade-in 0.6s ease-out forwards;
@@ -65,14 +86,20 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans), Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile Safe Areas */
+.safe-bottom {
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .container-page {
   width: 100%;
   max-width: 80rem;
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -98,18 +125,4 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Lightweight CSS-only hero background — no images, so it stays cheap on a
-   slow connection (spec §9's low-bandwidth requirement). */
-.hero-surface {
-  background:
-    radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--color-green-500) 12%, transparent), transparent 55%),
-    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--color-amber-500) 14%, transparent), transparent 50%),
-    var(--color-mist);
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-green-600);
-  outline-offset: 2px;
 }

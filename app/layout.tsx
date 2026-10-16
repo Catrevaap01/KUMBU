@@ -1,16 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import { PwaRegister } from "@/components/ui/PwaRegister";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0B5D3B",
+  themeColor: "#FF8A00",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -19,24 +21,27 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "KUMBU | Compara. Poupa. Escolhe melhor.",
-    template: "%s | KUMBU",
+    default: "KUBIKA | Compara. Poupa. Escolhe melhor.",
+    template: "%s | KUBIKA",
   },
   description:
-    "KUMBU — Os melhores preços, em todos os mercados. Encontre, compare e faça escolhas inteligentes em Angola.",
+    "KUBIKA — Compara preços. Poupa. Escolhe melhor. Encontre as melhores ofertas e preços em todos os mercados de Angola.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
-    title: "KUMBU",
+    statusBarStyle: "black-translucent",
+    title: "KUBIKA",
   },
   formatDetection: {
     telephone: true,
   },
   icons: {
-    icon: "/kumbu-icon.svg",
-    shortcut: "/kumbu-icon.svg",
-    apple: "/kumbu-icon.svg",
+    icon: [
+      { url: "/kubika-icon.svg", type: "image/svg+xml" },
+      { url: "/kumbu-icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/kubika-icon.svg",
+    apple: "/kubika-icon.svg",
   },
 };
 
@@ -46,10 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt" suppressHydrationWarning className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full bg-mist text-ink-900" suppressHydrationWarning>
+    <html lang="pt" suppressHydrationWarning className={`${montserrat.variable} h-full antialiased`}>
+      <body className="min-h-full bg-[#FBFAFC] text-[#0B0B0D] font-sans selection:bg-[#FF8A00]/20 selection:text-[#0B0B0D] pb-16 sm:pb-0" suppressHydrationWarning>
         <PwaRegister />
         {children}
+        <MobileBottomNav />
       </body>
     </html>
   );

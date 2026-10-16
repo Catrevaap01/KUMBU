@@ -5,8 +5,8 @@ import { AdminNav } from "@/components/admin/AdminNav";
 import { UserManagementTable } from "@/components/admin/UserManagementTable";
 
 export const metadata: Metadata = {
-  title: "Gestão de Utilizadores — Administração KUMBU",
-  description: "Lista e administração de utilizadores, comerciantes e administradores da plataforma KUMBU.",
+  title: "Gestão de Utilizadores — Administração KUBIKA",
+  description: "Lista e administração de utilizadores, comerciantes e administradores da plataforma KUBIKA.",
 };
 
 export default async function AdminUsersPage() {

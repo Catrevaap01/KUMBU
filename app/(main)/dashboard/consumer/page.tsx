@@ -7,7 +7,7 @@ import { formatPrice, formatRelativeTime } from "@/lib/format";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Painel do Consumidor — KUMBU",
+  title: "Painel do Consumidor — KUBIKA",
   description: "Acompanhe as suas compras, faturas, relatos de preços e economia familiar.",
 };
 
@@ -50,10 +50,10 @@ export default async function ConsumerDashboardPage() {
   return (
     <main className="container-page py-10 space-y-8">
       {/* Banner de Boas-Vindas */}
-      <div className="rounded-2xl border border-border bg-gradient-to-r from-green-900 to-[#0B5D3B] p-6 text-white shadow-md sm:p-8">
+      <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-[#0B0B0D] via-[#1A1815] to-[#2B1B0E] p-6 text-white shadow-md sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-green-100">
+            <span className="inline-block rounded-full bg-[#FF8A00] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
               Painel do Consumidor
             </span>
             <h1 className="mt-2 text-2xl font-black sm:text-3xl">

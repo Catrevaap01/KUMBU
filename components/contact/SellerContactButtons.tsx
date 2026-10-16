@@ -27,8 +27,8 @@ export function SellerContactButtons({
   }
 
   const defaultMsg = productContext
-    ? `Olá ${sellerName}! Vi o produto "${productContext.name}" no KUMBU por ${productContext.price.toLocaleString("pt-AO")} ${productContext.currency} e gostaria de saber se está disponível.`
-    : `Olá ${sellerName}! Encontrei o vosso estabelecimento através da plataforma KUMBU e gostaria de mais informações.`;
+    ? `Olá ${sellerName}! Vi o produto "${productContext.name}" no KUBIKA por ${productContext.price.toLocaleString("pt-AO")} ${productContext.currency} e gostaria de saber se está disponível.`
+    : `Olá ${sellerName}! Encontrei o vosso estabelecimento através da plataforma KUBIKA e gostaria de mais informações.`;
 
   const waUrl = whatsappNumber ? buildWhatsAppUrl(whatsappNumber, defaultMsg) : "";
   const telHref = phone ? `tel:${cleanAngolaPhone(phone)}` : "";

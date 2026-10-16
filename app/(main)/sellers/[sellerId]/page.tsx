@@ -84,7 +84,7 @@ export default async function SellerPage({
         {seller.verificationStatus !== "VERIFIED" ? (
           <EmptyState
             title="Estabelecimento em processo de verificação"
-            description="Para a segurança dos consumidores, os produtos só ficam visíveis publicamente após a verificação oficial do comerciante pela equipa KUMBU."
+            description="Para a segurança dos consumidores, os produtos só ficam visíveis publicamente após a verificação oficial do comerciante pela equipa KUBIKA."
           />
         ) : listings.length === 0 ? (
           <EmptyState title="Este comerciante ainda não possui preços ativos registados." />

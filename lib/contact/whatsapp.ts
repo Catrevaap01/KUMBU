@@ -33,7 +33,7 @@ export function buildWhatsAppUrl(phone: string, message: string): string {
 }
 
 export function buildProductInquiryMessage(productName: string, price: number, currency: string, sellerName: string): string {
-  return `Olá ${sellerName}! Vi o produto "${productName}" no KUMBU por ${price.toLocaleString("pt-AO")} ${currency}. Ainda está disponível para encomenda?`;
+  return `Olá ${sellerName}! Vi o produto "${productName}" no KUBIKA por ${price.toLocaleString("pt-AO")} ${currency}. Ainda está disponível para encomenda?`;
 }
 
 export function buildCartOrderMessage(
@@ -50,7 +50,7 @@ export function buildCartOrderMessage(
     .map((i) => `• ${i.quantity}x ${i.productName} (${i.unit}) — ${(i.price * i.quantity).toLocaleString("pt-AO")} ${currency}`)
     .join("\n");
 
-  let msg = `*Olá ${sellerName}!* 🛒\nGostaria de fazer a seguinte encomenda que preparei através da plataforma *KUMBU*:\n\n${itemList}\n\n*Total a Pagar:* ${subtotal.toLocaleString("pt-AO")} ${currency}`;
+  let msg = `*Olá ${sellerName}!* 🛒\nGostaria de fazer a seguinte encomenda que preparei através da plataforma *KUBIKA*:\n\n${itemList}\n\n*Total a Pagar:* ${subtotal.toLocaleString("pt-AO")} ${currency}`;
 
   if (options?.deliveryText) {
     msg += `\n*Entrega:* ${options.deliveryText}`;
@@ -62,4 +62,3 @@ export function buildCartOrderMessage(
   msg += `\n\nPode confirmar a disponibilidade e o pedido? Obrigado!`;
   return msg;
 }
-

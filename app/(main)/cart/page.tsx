@@ -5,7 +5,7 @@ import { CartView } from "@/components/cart/CartView";
 import { prisma } from "@/lib/db/client";
 
 export const metadata: Metadata = {
-  title: "Carrinho & Fatura de Compras — KUMBU",
+  title: "Carrinho & Fatura de Compras — KUBIKA",
   description: "Faça a gestão da sua lista de compras, emita faturas únicas consolidadas ou envie encomendas diretamente aos vendedores via WhatsApp.",
 };
 

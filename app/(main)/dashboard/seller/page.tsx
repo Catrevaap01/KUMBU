@@ -7,7 +7,7 @@ import { SellerPlanCard } from "@/components/dashboard/SellerPlanCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Button } from "@/components/ui/Button";
 
-export const metadata: Metadata = { title: "Painel do Comerciante — KUMBU" };
+export const metadata: Metadata = { title: "Painel do Comerciante — KUBIKA" };
 
 export default async function SellerDashboardPage() {
   const user = await requireUser("/dashboard/seller");

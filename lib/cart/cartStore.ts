@@ -15,13 +15,14 @@ export type CartItem = {
   quantity: number;
 };
 
-const CART_STORAGE_KEY = "kumbu_cart_v1";
-export const CART_UPDATED_EVENT = "kumbu-cart-updated";
+const CART_STORAGE_KEY = "kubika_cart_v1";
+const LEGACY_STORAGE_KEY = "kumbu_cart_v1";
+export const CART_UPDATED_EVENT = "kubika-cart-updated";
 
 export function getCart(): CartItem[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    const raw = localStorage.getItem(CART_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];

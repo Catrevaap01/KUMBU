@@ -15,7 +15,8 @@ import {
 // (React useSyncExternalStore requires referential equality when store hasn't changed)
 // ---------------------------------------------------------------------------
 
-const CART_STORAGE_KEY = "kumbu_cart_v1";
+const CART_STORAGE_KEY = "kubika_cart_v1";
+const LEGACY_STORAGE_KEY = "kumbu_cart_v1";
 const EMPTY_ITEMS: CartItem[] = [];
 
 let cachedRaw: string | null = null;
@@ -34,7 +35,7 @@ function subscribeToCart(onStoreChange: () => void) {
 function getSnapshot(): CartItem[] {
   if (typeof window === "undefined") return EMPTY_ITEMS;
   try {
-    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    const raw = localStorage.getItem(CART_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (raw === cachedRaw) {
       return cachedItems;
     }

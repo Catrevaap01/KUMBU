@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth/session";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Button } from "@/components/ui/Button";
-import { KumbuLogo } from "@/components/ui/KumbuLogo";
+import { KubikaLogo } from "@/components/ui/KubikaLogo";
 import { CartHeaderButton } from "@/components/cart/CartHeaderButton";
 
 export async function SiteHeader() {
@@ -12,10 +12,10 @@ export async function SiteHeader() {
   const showCart = !isSeller && !isAdmin;
 
   return (
-    <header className="border-b border-border bg-white sticky top-0 z-40 backdrop-blur-md bg-white/95">
+    <header className="border-b border-border bg-[#FBFAFC]/95 sticky top-0 z-40 backdrop-blur-md">
       <div className="container-page flex h-14 items-center justify-between gap-2">
-        <Link href="/" aria-label="KUMBU Início" className="flex items-center gap-2 shrink-0">
-          <KumbuLogo size="sm" showTagline={false} />
+        <Link href="/" aria-label="KUBIKA Início" className="flex items-center gap-2 shrink-0">
+          <KubikaLogo size="sm" showTagline={false} />
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3">
@@ -27,21 +27,21 @@ export async function SiteHeader() {
               {user.systemRole === "ADMIN" ? (
                 <Link
                   href="/admin"
-                  className="text-xs sm:text-sm font-semibold text-amber-600 hover:text-amber-700"
+                  className="text-xs sm:text-sm font-semibold text-[#FF8A00] hover:text-[#E67A00]"
                 >
                   Administração
                 </Link>
               ) : user.sellerId ? (
                 <Link
                   href="/dashboard/seller"
-                  className="text-xs sm:text-sm font-semibold text-green-800 hover:text-green-600"
+                  className="text-xs sm:text-sm font-semibold text-[#0B0B0D] hover:text-[#FF8A00]"
                 >
                   Painel do Vendedor
                 </Link>
               ) : (
                 <Link
                   href="/dashboard/consumer"
-                  className="text-xs sm:text-sm font-semibold text-ink-900 hover:text-green-600"
+                  className="text-xs sm:text-sm font-semibold text-[#0B0B0D] hover:text-[#FF8A00]"
                 >
                   Meu Painel
                 </Link>
