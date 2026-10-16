@@ -5,14 +5,7 @@ import { KubikaLogo } from "@/components/ui/KubikaLogo";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
-const QUICK_CATEGORIES = [
-  { name: "Alimentação", query: "arroz" },
-  { name: "Bebidas", query: "sumo" },
-  { name: "Higiene", query: "sabao" },
-  { name: "Óleos & Gorduras", query: "oleo" },
-  { name: "Laticínios", query: "leite" },
-  { name: "Carnes & Peixes", query: "frango" },
-];
+
 
 const STEPS = [
   {
@@ -74,23 +67,7 @@ export default async function HomePage() {
             <SearchBar />
           </div>
 
-          {/* Quick Categories Pills (estilo mobile nativo da marca) */}
-          <div className="w-full max-w-2xl pt-2">
-            <p className="text-[11px] font-bold text-[#687280] uppercase tracking-wider mb-2.5">
-              Categorias Populares
-            </p>
-            <div className="flex items-center justify-center gap-2 overflow-x-auto no-scrollbar py-1 px-2">
-              {QUICK_CATEGORIES.map((cat) => (
-                <Link
-                  key={cat.name}
-                  href={`/search?q=${encodeURIComponent(cat.query)}`}
-                  className="inline-flex items-center rounded-full border border-border bg-white px-4 py-1.5 text-xs font-semibold text-[#14915A] shadow-xs transition hover:border-[#0f7a4a] hover:bg-[#0f7a4a]/5 hover:text-[#0f7a4a] shrink-0"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-          </div>
+
         </div>
       </section>
 
