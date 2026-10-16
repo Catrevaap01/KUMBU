@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0f7a4a",
+  themeColor: "#16a34a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -27,9 +27,10 @@ export const metadata: Metadata = {
   description:
     "KUBIKA — Compara preços. Poupa. Escolhe melhor. Encontre as melhores ofertas e preços em todos os mercados de Angola.",
   manifest: "/manifest.webmanifest",
+  applicationName: "KUBIKA",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "KUBIKA",
   },
   formatDetection: {
@@ -37,11 +38,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/kubika-icon.svg", type: "image/svg+xml" },
-      { url: "/kumbu-icon.svg", type: "image/svg+xml" },
     ],
-    shortcut: "/kubika-icon.svg",
-    apple: "/kubika-icon.svg",
+    shortcut: "/icons/favicon-32x32.png",
+    apple: [
+      { url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -57,7 +61,7 @@ export default async function RootLayout({
 
   return (
     <html lang="pt" suppressHydrationWarning className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full bg-white text-ink-900 font-sans selection:bg-green-600/20 selection:text-ink-900 pb-16 sm:pb-0" suppressHydrationWarning>
+      <body className="min-h-full bg-white text-ink-900 font-sans selection:bg-green-600/20 selection:text-ink-900 pb-20 sm:pb-0" suppressHydrationWarning>
         <PwaRegister />
         {children}
         <MobileBottomNav role={userRole} />

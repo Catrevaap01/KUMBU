@@ -48,7 +48,7 @@ export default async function HomePage() {
   return (
     <main className="flex flex-col">
       {/* Hero Section otimizado para Desktop e Mobile */}
-      <section className="bg-gradient-to-b from-white via-[#FFF8F0] to-[#FBFAFC] border-b border-border/60 animate-fade-in">
+      <section className="bg-gradient-to-b from-white via-green-50/20 to-[#FBFAFC] border-b border-border/60 animate-fade-in">
         <div className="container-page flex flex-col items-center gap-5 py-12 text-center sm:py-20">
           <KubikaLogo size="xl" variant="vertical" className="mb-1" />
           <h1 className="sr-only">KUBIKA — Compara. Poupa. Escolhe melhor.</h1>

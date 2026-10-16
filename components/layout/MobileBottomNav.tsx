@@ -128,7 +128,7 @@ export function MobileBottomNav({ role }: MobileBottomNavProps) {
             </svg>
             <span className="text-[10px] tracking-tight font-semibold">Minha Loja</span>
           </Link>
-        ) : (
+        ) : role === "CONSUMER" ? (
           <Link
             href="/dashboard/consumer"
             className={`flex flex-col items-center gap-1 transition-colors ${
@@ -139,6 +139,20 @@ export function MobileBottomNav({ role }: MobileBottomNavProps) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
             <span className="text-[10px] tracking-tight font-semibold">Meu Painel</span>
+          </Link>
+        ) : (
+          <Link
+            href="/sign-in"
+            className={`flex flex-col items-center gap-1 transition-colors ${
+              pathname.startsWith("/sign-in") || pathname.startsWith("/sign-up")
+                ? "text-green-500 font-bold"
+                : "text-[#8E95A2] hover:text-white"
+            }`}
+          >
+            <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={pathname.startsWith("/sign-in") ? "2.5" : "2"}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+            <span className="text-[10px] tracking-tight font-semibold">Entrar</span>
           </Link>
         )}
       </div>

@@ -1,15 +1,23 @@
-const CACHE_NAME = "kumbu-cache-v1";
+const CACHE_NAME = "kubika-pwa-v2";
 const STATIC_ASSETS = [
   "/",
+  "/offline",
   "/manifest.webmanifest",
-  "/kumbu-icon.svg",
-  "/kumbu-logo.svg",
+  "/kubika-icon.svg",
+  "/kubika-logo.svg",
+  "/icons/icon-192x192.png",
+  "/icons/icon-512x512.png",
+  "/icons/icon-maskable-512x512.png",
+  "/icons/apple-touch-icon.png",
+  "/icons/favicon-32x32.png",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch(() => {});
+      return cache.addAll(STATIC_ASSETS).catch((err) => {
+        console.debug("Cache addAll non-critical failure:", err);
+      });
     })
   );
   self.skipWaiting();
@@ -29,41 +37,66 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  // Apenas métodos GET
   if (event.request.method !== "GET") return;
 
   const url = new URL(event.request.url);
 
-  // Network-first para navegação e páginas dinâmicas, com fallback de cache
+  // Evitar interceptar rotas de API ou chamadas internas do Next.js rsc/hmr
+  if (
+    url.pathname.startsWith("/api/") ||
+    url.pathname.includes("/_next/webpack-hmr") ||
+    url.pathname.startsWith("/_next/data/")
+  ) {
+    return;
+  }
+
+  // Navegação: Network First com fallback para Cache e depois /offline
   if (event.request.mode === "navigate") {
     event.respondWith(
-      fetch(event.request).catch(async () => {
-        const cached = await caches.match(event.request);
-        return cached || (await caches.match("/"));
-      })
+      fetch(event.request)
+        .then((response) => {
+          if (response.status === 200) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(async () => {
+          const cached = await caches.match(event.request);
+          if (cached) return cached;
+          const offlinePage = await caches.match("/offline");
+          if (offlinePage) return offlinePage;
+          return caches.match("/") || Response.error();
+        })
     );
     return;
   }
 
-  // Cache-first para ícones estáticos
-  if (url.pathname.endsWith(".svg") || url.pathname.endsWith(".png") || url.pathname.endsWith(".webmanifest")) {
+  // Estáticos: Cache First com atualização de fundo
+  if (
+    url.pathname.startsWith("/icons/") ||
+    url.pathname.endsWith(".svg") ||
+    url.pathname.endsWith(".png") ||
+    url.pathname.endsWith(".webmanifest") ||
+    url.pathname.startsWith("/_next/static/")
+  ) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
-        return (
-          cached ||
-          fetch(event.request).then((response) => {
-            if (response.status === 200) {
-              const resClone = response.clone();
-              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, resClone));
-            }
-            return response;
-          })
-        );
+        if (cached) return cached;
+        return fetch(event.request).then((response) => {
+          if (response.status === 200) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return response;
+        });
       })
     );
     return;
   }
 
-  // Network padrão para o resto
-  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+  // Padrão: Network first com cache fallback
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
+  );
 });
