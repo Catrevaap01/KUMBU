@@ -130,6 +130,25 @@ export async function submitSellerPriceAction(
   if (!seller) {
     return { error: "Perfil de vendedor não encontrado. Contacte o suporte." };
   }
+
+  // Regra do Modelo Freemium: Plano Grátis permite até 5 produtos ativos
+  if (seller.plan === "FREE") {
+    const existingListing = await prisma.priceReport.findFirst({
+      where: { sellerId: seller.id, productId: product.id, moderationStatus: "ACTIVE" },
+    });
+    if (!existingListing) {
+      const activeCount = await prisma.priceReport.count({
+        where: { sellerId: seller.id, moderationStatus: "ACTIVE" },
+      });
+      if (activeCount >= 5) {
+        return {
+          error:
+            "Atingiu o limite de 5 produtos do Plano Grátis. Atualize para o Plano KUMBU Pro (9.500 Kz/mês) para publicar produtos ilimitados e obter selo de destaque prioritário.",
+        };
+      }
+    }
+  }
+
   const currency = CURRENCY_BY_COUNTRY[seller.country];
 
   await prisma.$transaction(async (tx) => {
@@ -151,6 +170,48 @@ export async function submitSellerPriceAction(
   revalidatePath("/dashboard/seller");
   revalidatePath(`/products/${product.id}`);
   redirect("/dashboard/seller");
+}
+
+export async function upgradeSellerPlanAction(
+  _prevState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const user = await requireUser("/dashboard/seller");
+  if (!user.sellerId) {
+    return { error: "Apenas comerciantes registados podem gerir planos de subscrição." };
+  }
+
+  const targetPlan = formData.get("plan") === "PRO" ? "PRO" : "FREE";
+
+  try {
+    await prisma.seller.update({
+      where: { id: user.sellerId },
+      data: {
+        plan: targetPlan,
+        isFeatured: targetPlan === "PRO",
+      },
+    });
+  } catch (error) {
+    console.error("Erro ao atualizar plano do comerciante:", error);
+    return { error: "Não foi possível atualizar o plano. Tente novamente." };
+  }
+
+  revalidatePath("/dashboard/seller");
+  revalidatePath("/");
+  return { success: true };
+}
+
+export async function trackSellerClickAction(sellerId: string): Promise<void> {
+  try {
+    await prisma.seller.update({
+      where: { id: sellerId },
+      data: {
+        whatsappClicks: { increment: 1 },
+      },
+    });
+  } catch {
+    // Non-blocking telemetry
+  }
 }
 
 export async function removeSellerListingAction(priceReportId: string): Promise<void> {

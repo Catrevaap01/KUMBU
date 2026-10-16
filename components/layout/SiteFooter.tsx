@@ -24,6 +24,9 @@ export function SiteFooter() {
           <Link href="/sellers/register" className="hover:text-green-600">
             Registo de Comerciante
           </Link>
+          <Link href="/analytics" className="hover:text-green-600 text-green-800 font-semibold">
+            Inteligência de Mercado (B2B)
+          </Link>
         </nav>
       </div>
 

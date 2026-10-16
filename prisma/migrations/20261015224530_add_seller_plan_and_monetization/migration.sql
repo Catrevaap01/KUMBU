@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Seller" ADD COLUMN     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "plan" TEXT NOT NULL DEFAULT 'FREE',
+ADD COLUMN     "whatsappClicks" INTEGER NOT NULL DEFAULT 0;

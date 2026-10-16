@@ -41,10 +41,25 @@ export function buildCartOrderMessage(
   items: { productName: string; unit: string; price: number; quantity: number }[],
   subtotal: number,
   currency = "Kz",
+  options?: {
+    deliveryText?: string;
+    paymentText?: string;
+  },
 ): string {
   const itemList = items
     .map((i) => `• ${i.quantity}x ${i.productName} (${i.unit}) — ${(i.price * i.quantity).toLocaleString("pt-AO")} ${currency}`)
     .join("\n");
 
-  return `*Olá ${sellerName}!* 🛒\nGostaria de fazer a seguinte encomenda que preparei através da plataforma *KUMBU*:\n\n${itemList}\n\n*Total a Pagar:* ${subtotal.toLocaleString("pt-AO")} ${currency}\n\nPode confirmar a disponibilidade e dados para pagamento/recolha? Obrigado!`;
+  let msg = `*Olá ${sellerName}!* 🛒\nGostaria de fazer a seguinte encomenda que preparei através da plataforma *KUMBU*:\n\n${itemList}\n\n*Total a Pagar:* ${subtotal.toLocaleString("pt-AO")} ${currency}`;
+
+  if (options?.deliveryText) {
+    msg += `\n*Entrega:* ${options.deliveryText}`;
+  }
+  if (options?.paymentText) {
+    msg += `\n*Pagamento:* ${options.paymentText}`;
+  }
+
+  msg += `\n\nPode confirmar a disponibilidade e o pedido? Obrigado!`;
+  return msg;
 }
+

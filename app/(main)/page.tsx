@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { KumbuLogo } from "@/components/ui/KumbuLogo";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { SponsoredBanner } from "@/components/ads/SponsoredBanner";
 
 const STEPS = [
   {
@@ -110,6 +111,11 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Publicidade Nativa / Destaque Comercial */}
+      <section className="container-page pt-6 pb-2">
+        <SponsoredBanner />
+      </section>
 
       <section className="container-page py-10">
         <div className="grid gap-4 sm:grid-cols-3">

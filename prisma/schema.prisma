@@ -121,6 +121,9 @@ model Seller {
   contactPhone       String?
   contactWhatsapp    String?
   verificationStatus SellerVerificationStatus @default(UNVERIFIED)
+  plan               String                   @default("FREE")
+  isFeatured         Boolean                  @default(false)
+  whatsappClicks     Int                      @default(0)
   createdAt          DateTime                 @default(now())
 
   user         User?         @relation(fields: [userId], references: [id])
