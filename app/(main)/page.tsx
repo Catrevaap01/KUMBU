@@ -4,7 +4,6 @@ import { SearchBar } from "@/components/search/SearchBar";
 import { KubikaLogo } from "@/components/ui/KubikaLogo";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { SponsoredBanner } from "@/components/ads/SponsoredBanner";
 
 const QUICK_CATEGORIES = [
   { name: "Alimentação", query: "arroz" },
@@ -143,10 +142,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Publicidade Nativa / Destaque Comercial */}
-      <section className="container-page pt-6 pb-2">
-        <SponsoredBanner />
-      </section>
+
 
       {/* Os 3 Pilares da Marca: Compara. Poupa. Escolhe Melhor. */}
       <section className="container-page py-10">
